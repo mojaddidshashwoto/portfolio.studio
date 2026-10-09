@@ -47,7 +47,7 @@ export default function AboutSection() {
                 Framing Stillness in the City.
               </h2>
 
-              <div className="mt-8 space-y-5 text-sm sm:text-base text-neutral-300 font-light leading-relaxed max-w-xl">
+              <div className="mt-8 space-y-5 text-base text-neutral-300 font-light leading-relaxed max-w-xl">
                 <p>
                   I am <strong className="text-white font-medium">Mojaddid Shashwoto</strong>, an
                   independent photographer based in Dhaka.

@@ -104,12 +104,12 @@ export default function ContactSection() {
                   <span className="text-neutral-500 uppercase tracking-widest block text-[10px]">
                     Social
                   </span>
-                  <div className="mt-2 flex flex-col gap-2">
+                  <div className="mt-2 flex flex-col gap-1">
                     <a
                       href="https://www.instagram.com/mojaddid_shashwoto/"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-neutral-300 hover:text-[#c6ff3d] transition-colors inline-flex items-center gap-1.5 uppercase"
+                      className="min-h-[44px] py-2 text-neutral-300 hover:text-[#c6ff3d] transition-colors inline-flex items-center gap-1.5 uppercase"
                       data-cursor="hover"
                     >
                       <span>Instagram</span>
@@ -119,7 +119,7 @@ export default function ContactSection() {
                       href="https://www.facebook.com/Mojaddid.Shashwotoo/"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-neutral-300 hover:text-[#c6ff3d] transition-colors inline-flex items-center gap-1.5 uppercase"
+                      className="min-h-[44px] py-2 text-neutral-300 hover:text-[#c6ff3d] transition-colors inline-flex items-center gap-1.5 uppercase"
                       data-cursor="hover"
                     >
                       <span>Facebook</span>
@@ -176,8 +176,20 @@ export default function ContactSection() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
-                  {/* Honeypot field for bot spam deterrence */}
-                  <div className="hidden" aria-hidden="true">
+                  {/* Honeypot field for bot spam deterrence - strictly off-screen and aria-hidden */}
+                  <div
+                    style={{
+                      position: "absolute",
+                      left: "-9999px",
+                      top: "-9999px",
+                      width: "1px",
+                      height: "1px",
+                      overflow: "hidden",
+                      opacity: 0,
+                      pointerEvents: "none",
+                    }}
+                    aria-hidden="true"
+                  >
                     <label htmlFor="company_hp">Company</label>
                     <input
                       id="company_hp"

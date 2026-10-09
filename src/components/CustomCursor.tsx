@@ -16,9 +16,11 @@ export default function CustomCursor() {
 
   useEffect(() => {
     const hasFinePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    const isCoarse = window.matchMedia("(pointer: coarse)").matches;
+    const isTouchDevice = 'ontouchstart' in window || (navigator.maxTouchPoints && navigator.maxTouchPoints > 0);
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    if (!hasFinePointer || prefersReducedMotion) {
+    if (!hasFinePointer || isCoarse || isTouchDevice || prefersReducedMotion) {
       document.body.classList.add("use-default-cursor");
       return;
     }

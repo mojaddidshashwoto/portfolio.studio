@@ -41,8 +41,8 @@ export default function GalleryPage() {
           </h1>
         </div>
 
-        {/* Category Filters */}
-        <div className="flex flex-wrap items-center gap-2 font-mono text-xs mb-10 pb-6 border-b border-white/10">
+        {/* Category Filters: Horizontal Scrollable Chip Row */}
+        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1 -mx-4 px-4 sm:mx-0 sm:px-0 font-mono text-xs mb-8 pb-4 border-b border-white/10">
           {categories.map((cat) => {
             const active = activeCategory === cat;
             return (
@@ -50,7 +50,7 @@ export default function GalleryPage() {
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
                 data-cursor="hover"
-                className={`px-3.5 py-1.5 border uppercase tracking-wider transition-colors ${
+                className={`min-h-[44px] px-4 py-2 border uppercase tracking-wider shrink-0 transition-colors flex items-center justify-center ${
                   active
                     ? "border-[#c6ff3d] text-[#c6ff3d] bg-[#c6ff3d]/10 font-bold"
                     : "border-white/10 text-neutral-400 hover:text-white"
@@ -62,20 +62,21 @@ export default function GalleryPage() {
           })}
         </div>
 
-        {/* Tightened Grid of Pure Text-Free Photos */}
-        <motion.div
-          layout
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 items-start"
-        >
+        {/* 2-Column Masonry with tight 6px gaps */}
+        <div className="columns-2 sm:columns-2 lg:columns-3 gap-[6px] sm:gap-4 lg:gap-6 space-y-[6px] sm:space-y-4 lg:space-y-6">
           <AnimatePresence>
-            {filteredPhotos.map((photo) => (
+            {filteredPhotos.map((photo, index) => (
               <motion.div
                 key={photo.id}
-                layout
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 12 }}
-                transition={{ duration: 0.3 }}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-30px" }}
+                transition={{
+                  duration: 0.45,
+                  delay: (index % 4) * 0.08,
+                  ease: "easeOut",
+                }}
+                className="break-inside-avoid"
               >
                 <FramedPhoto
                   photo={photo}
@@ -85,7 +86,7 @@ export default function GalleryPage() {
               </motion.div>
             ))}
           </AnimatePresence>
-        </motion.div>
+        </div>
 
         {/* Text-Free Lightbox */}
         <Lightbox

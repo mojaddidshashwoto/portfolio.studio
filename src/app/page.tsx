@@ -7,11 +7,11 @@ import MasonryGallery from "@/components/MasonryGallery";
 import AboutSection from "@/components/AboutSection";
 import ContactSection from "@/components/ContactSection";
 import Lightbox from "@/components/Lightbox";
-import { photos, getHorizontalPhotos, Photo } from "@/lib/photos";
+import { photos, getFeaturedNonPortraitPhotos, Photo } from "@/lib/photos";
 
 export default function HomePage() {
   const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
-  const horizontalPhotos = getHorizontalPhotos();
+  const horizontalPhotos = getFeaturedNonPortraitPhotos();
 
   return (
     <div className="w-full flex flex-col bg-[#060709]">

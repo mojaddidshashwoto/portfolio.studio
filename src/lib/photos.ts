@@ -61,6 +61,12 @@ export function getHorizontalPhotos(): Photo[] {
   return photos.filter((p) => p.horizontalGallery || p.featured);
 }
 
+export function getFeaturedNonPortraitPhotos(): Photo[] {
+  return photos
+    .filter((p) => p.id !== "architectural-window-portrait" && p.category !== "Portrait")
+    .slice(0, 8);
+}
+
 export function getPhotosByCategory(cat: Category): Photo[] {
   if (cat === "All") return photos;
   return photos.filter((p) => p.category === cat);

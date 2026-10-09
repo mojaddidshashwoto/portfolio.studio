@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
@@ -17,7 +17,21 @@ export default function HorizontalGallery({
 }: HorizontalGalleryProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
+  const mobileScrollRef = useRef<HTMLDivElement>(null);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
+  // Mobile native scroll listener for progress bar
+  const handleMobileScroll = () => {
+    const el = mobileScrollRef.current;
+    if (!el) return;
+    const maxScroll = el.scrollWidth - el.clientWidth;
+    if (maxScroll > 0) {
+      const p = Math.min(100, Math.max(0, (el.scrollLeft / maxScroll) * 100));
+      setScrollProgress(p);
+    }
+  };
+
+  // Desktop GSAP pin-scroll
   useEffect(() => {
     if (typeof window === "undefined") return;
 
@@ -31,7 +45,7 @@ export default function HorizontalGallery({
     if (!section || !track) return;
 
     const ctx = gsap.context(() => {
-      if (window.innerWidth >= 768) {
+      if (window.innerWidth >= 1024) {
         const totalScroll = track.scrollWidth - window.innerWidth + 80;
 
         gsap.to(track, {
@@ -44,6 +58,9 @@ export default function HorizontalGallery({
             start: "top top",
             end: () => `+=${totalScroll}`,
             invalidateOnRefresh: true,
+            onUpdate: (self) => {
+              setScrollProgress(self.progress * 100);
+            },
           },
         });
       }
@@ -61,25 +78,75 @@ export default function HorizontalGallery({
       className="relative w-full bg-[#0a0a0a] overflow-hidden border-b border-white/10"
     >
       {/* Top Editorial Index Bar */}
-      <div className="w-full border-b border-white/10 px-6 md:px-12 py-5 flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <span className="font-mono text-xs text-[#c6ff3d] uppercase tracking-widest">
+      <div className="w-full border-b border-white/10 px-5 sm:px-6 md:px-12 py-4 sm:py-5 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <span className="w-1.5 h-1.5 bg-[#c6ff3d]" />
+          <span className="font-mono text-xs text-[#c6ff3d] uppercase tracking-widest font-semibold">
             01 / SELECTED WORK
           </span>
         </div>
 
-        <div className="flex items-center gap-4 font-mono text-xs text-neutral-400">
-          <span className="hidden sm:inline uppercase tracking-widest">
-            Scroll Track
+        <div className="flex items-center gap-4 font-mono text-[11px] text-neutral-400">
+          <span className="uppercase tracking-widest">
+            {photos.length} Works
           </span>
           <span className="text-[#c6ff3d]">→</span>
         </div>
       </div>
 
-      {/* Horizontal Track of Pure Text-Free Photos */}
+      {/* Thin Lime Progress Bar */}
+      <div className="w-full h-[2px] bg-white/10 relative overflow-hidden" aria-hidden="true">
+        <div
+          className="h-full bg-[#c6ff3d] transition-[width] duration-150 ease-out"
+          style={{ width: `${Math.max(8, scrollProgress)}%` }}
+        />
+      </div>
+
+      {/* MOBILE SWIPE CAROUSEL (< 1024px): Native swipe with scroll-snap */}
+      <div
+        ref={mobileScrollRef}
+        onScroll={handleMobileScroll}
+        className="lg:hidden flex overflow-x-auto snap-x snap-mandatory px-5 sm:px-6 py-8 gap-4 no-scrollbar -webkit-overflow-scrolling-touch"
+        style={{ scrollbarWidth: "none" }}
+      >
+        {photos.map((photo, idx) => {
+          const aspectRatio =
+            photo.width && photo.height
+              ? `${photo.width} / ${photo.height}`
+              : "3 / 2";
+
+          return (
+            <div
+              key={photo.id}
+              onClick={() => onSelectPhoto(photo)}
+              data-cursor="view"
+              className="snap-center shrink-0 w-[82vw] sm:w-[60vw] max-w-[480px] bg-[#0a0a0a] border border-white/15 overflow-hidden active:border-[#c6ff3d] transition-colors"
+            >
+              <div
+                className="relative w-full overflow-hidden flex items-center justify-center bg-[#080808]"
+                style={{ aspectRatio }}
+              >
+                <Image
+                  src={photo.file || photo.src}
+                  alt={photo.alt}
+                  width={photo.width || 1800}
+                  height={photo.height || 1200}
+                  priority={idx < 2}
+                  placeholder={photo.blurDataURL ? "blur" : "empty"}
+                  blurDataURL={photo.blurDataURL}
+                  sizes="(max-width: 768px) 85vw, 480px"
+                  className="w-full h-full object-contain"
+                />
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* DESKTOP TRACK (>= 1024px): Horizontal Pin Track */}
       <div
         ref={trackRef}
-        className="flex flex-col md:flex-row md:items-center px-6 md:px-12 md:h-[78vh] py-8 md:py-10 gap-6 sm:gap-8 will-change-transform"
+        className="hidden lg:flex items-center px-12 h-[78vh] py-10 gap-8 will-change-transform"
       >
         {photos.map((photo) => {
           const aspectRatio =
@@ -92,7 +159,7 @@ export default function HorizontalGallery({
               key={photo.id}
               onClick={() => onSelectPhoto(photo)}
               data-cursor="view"
-              className="group relative shrink-0 w-full md:w-auto md:h-full max-h-[64vh] border border-white/10 bg-[#080808] overflow-hidden cursor-pointer transition-all duration-300 hover:border-[#c6ff3d] hover:shadow-[0_0_25px_rgba(198,255,61,0.2)] flex items-center justify-center"
+              className="group relative shrink-0 h-full max-h-[64vh] border border-white/10 bg-[#080808] overflow-hidden cursor-pointer transition-all duration-300 hover:border-[#c6ff3d] hover:shadow-[0_0_25px_rgba(198,255,61,0.2)] flex items-center justify-center"
             >
               <div
                 className="relative h-full w-auto overflow-hidden flex items-center justify-center"
@@ -105,7 +172,7 @@ export default function HorizontalGallery({
                   height={photo.height || 1200}
                   placeholder={photo.blurDataURL ? "blur" : "empty"}
                   blurDataURL={photo.blurDataURL}
-                  sizes="(max-width: 768px) 100vw, 680px"
+                  sizes="680px"
                   className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-[1.015]"
                 />
               </div>
