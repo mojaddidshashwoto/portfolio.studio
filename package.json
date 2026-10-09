@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "photos": "node scripts/add-photos.js"
   },
   "dependencies": {
     "framer-motion": "^14.0.0",
