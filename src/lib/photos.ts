@@ -50,7 +50,7 @@ export function getHeroPhoto(): Photo {
 }
 
 export function getAboutPhoto(): Photo {
-  return photos.find((p) => p.section === "about") || photos.find((p) => p.id === "4762") || photos[1];
+  return photos.find((p) => p.section === "about") || photos.find((p) => p.id === "concrete-window-grille-portrait") || photos[1];
 }
 
 export function getFeaturedPhotos(): Photo[] {

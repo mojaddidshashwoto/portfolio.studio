@@ -1,0 +1,9 @@
+<svg width="420" height="80" viewBox="0 0 420 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="8" y="10" width="60" height="60" rx="10" fill="#f4f4f4" stroke="#e0e0e0" stroke-width="1.5"/>
+  <path d="M21 53V27L31 41L41 27V53" stroke="#0a0a0a" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter"/>
+  <path d="M55 30H46V39H55V53H45" stroke="#0a0a0a" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter"/>
+  <rect x="52" y="22" width="4" height="4" fill="#0a0a0a"/>
+  
+  <text x="84" y="38" font-family="'Space Grotesk', 'Syne', -apple-system, sans-serif" font-size="20" font-weight="800" fill="#0a0a0a" letter-spacing="3">MOJADDID SHASHWOTO</text>
+  <text x="84" y="56" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="600" fill="#555555" letter-spacing="4">PHOTOGRAPHER / DHAKA</text>
+</svg>

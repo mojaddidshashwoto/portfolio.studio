@@ -37,11 +37,11 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://mojaddidshashwoto.studio"),
   title: {
-    default: "Mojaddid Shashwoto, Photographer",
+    default: "Mojaddid Shashwoto | Photographer in Dhaka",
     template: "%s | Mojaddid Shashwoto",
   },
   description:
-    "Selected photography by Mojaddid Shashwoto featuring portraits, street perspectives, and landscapes.",
+    "Selected photographs and archive by Mojaddid Shashwoto, documenting architecture, street perspectives, and portraits in Dhaka.",
   alternates: {
     canonical: "/",
   },
@@ -49,9 +49,9 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://mojaddidshashwoto.studio",
-    title: "Mojaddid Shashwoto, Photographer",
+    title: "Mojaddid Shashwoto | Photographer in Dhaka",
     description:
-      "Selected photography by Mojaddid Shashwoto featuring portraits, street perspectives, and landscapes.",
+      "Selected photographs and archive by Mojaddid Shashwoto, documenting architecture, street perspectives, and portraits in Dhaka.",
     siteName: "Mojaddid Shashwoto",
     images: [
       {
@@ -64,14 +64,14 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Mojaddid Shashwoto, Photographer",
+    title: "Mojaddid Shashwoto | Photographer in Dhaka",
     description:
-      "Selected photography by Mojaddid Shashwoto featuring portraits, street perspectives, and landscapes.",
+      "Selected photographs and archive by Mojaddid Shashwoto, documenting architecture, street perspectives, and portraits in Dhaka.",
     images: ["/og-image.jpg"],
   },
   icons: {
     icon: [
-      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/logo-mark.svg", type: "image/svg+xml" },
       { url: "/favicon.png", type: "image/png" },
     ],
     apple: [
@@ -84,11 +84,46 @@ export const metadata: Metadata = {
   },
 };
 
-const personSchema = {
+const jsonLdSchema = {
   "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Mojaddid Shashwoto",
-  "url": "https://mojaddidshashwoto.studio",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://mojaddidshashwoto.studio/#person",
+      "name": "Mojaddid Shashwoto",
+      "url": "https://mojaddidshashwoto.studio",
+      "jobTitle": "Photographer",
+      "image": "https://mojaddidshashwoto.studio/photos/architectural-window-portrait.webp",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Dhaka",
+        "addressCountry": "BD",
+      },
+      "sameAs": [
+        "https://www.instagram.com/mojaddid_shashwoto/",
+        "https://www.facebook.com/Mojaddid.Shashwotoo/",
+        "https://mojaddidshashwoto.me",
+      ],
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://mojaddidshashwoto.studio/#website",
+      "name": "Mojaddid Shashwoto",
+      "url": "https://mojaddidshashwoto.studio",
+      "publisher": {
+        "@id": "https://mojaddidshashwoto.studio/#person",
+      },
+    },
+    {
+      "@type": "ImageGallery",
+      "@id": "https://mojaddidshashwoto.studio/#gallery",
+      "name": "Mojaddid Shashwoto Photography Archive",
+      "url": "https://mojaddidshashwoto.studio/gallery",
+      "creator": {
+        "@id": "https://mojaddidshashwoto.studio/#person",
+      },
+    },
+  ],
 };
 
 export default function RootLayout({
@@ -104,7 +139,7 @@ export default function RootLayout({
       <head>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSchema) }}
         />
       </head>
       <body className="min-h-screen bg-[#0a0a0a] text-[#f2f2f2] font-sans selection:bg-[#c6ff3d] selection:text-[#0a0a0a] flex flex-col justify-between">

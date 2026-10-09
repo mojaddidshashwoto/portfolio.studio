@@ -4,7 +4,7 @@ import { getAboutPhoto } from "@/lib/photos";
 
 export const metadata = {
   title: "Profile",
-  description: "Photographer profile and statement for Mojaddid Shashwoto.",
+  description: "Photographer profile and visual principles of Mojaddid Shashwoto, working with natural light and geometric stillness.",
 };
 
 export default function AboutPage() {
@@ -65,7 +65,7 @@ export default function AboutPage() {
             style={{ aspectRatio: "1800 / 2400" }}
           >
             <Image
-              src={aboutPhoto.file || "/photos/4762.webp"}
+              src={aboutPhoto.file || "/photos/concrete-window-grille-portrait.webp"}
               alt={aboutPhoto.alt}
               width={aboutPhoto.width || 1800}
               height={aboutPhoto.height || 2400}

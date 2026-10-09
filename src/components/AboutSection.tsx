@@ -101,7 +101,7 @@ export default function AboutSection() {
                 style={{ aspectRatio }}
               >
                 <Image
-                  src={aboutPhoto.file || "/photos/4762.webp"}
+                  src={aboutPhoto.file || "/photos/concrete-window-grille-portrait.webp"}
                   alt={aboutPhoto.alt}
                   width={aboutPhoto.width || 1800}
                   height={aboutPhoto.height || 2400}

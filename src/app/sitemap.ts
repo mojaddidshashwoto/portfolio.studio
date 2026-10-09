@@ -1,30 +1,36 @@
 import { MetadataRoute } from "next";
+import { photos } from "@/lib/photos";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://mojaddidshashwoto.studio";
+  const now = new Date();
+
+  const photoImageUrls = photos.map((p) => `${baseUrl}${p.file}`);
 
   return [
     {
       url: baseUrl,
-      lastModified: new Date(),
+      lastModified: now,
       changeFrequency: "weekly",
       priority: 1.0,
+      images: photoImageUrls,
     },
     {
       url: `${baseUrl}/gallery`,
-      lastModified: new Date(),
+      lastModified: now,
       changeFrequency: "weekly",
       priority: 0.9,
+      images: photoImageUrls,
     },
     {
       url: `${baseUrl}/about`,
-      lastModified: new Date(),
+      lastModified: now,
       changeFrequency: "monthly",
       priority: 0.8,
     },
     {
       url: `${baseUrl}/contact`,
-      lastModified: new Date(),
+      lastModified: now,
       changeFrequency: "monthly",
       priority: 0.8,
     },

@@ -1,0 +1,11 @@
+<svg width="420" height="80" viewBox="0 0 420 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Mark icon on left -->
+  <rect x="8" y="10" width="60" height="60" rx="10" fill="#121212" stroke="#222" stroke-width="1.5"/>
+  <path d="M21 53V27L31 41L41 27V53" stroke="#f2f2f2" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter"/>
+  <path d="M55 30H46V39H55V53H45" stroke="#f2f2f2" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter"/>
+  <rect x="52" y="22" width="4" height="4" fill="#c6ff3d"/>
+  
+  <!-- Wordmark Text -->
+  <text x="84" y="38" font-family="'Space Grotesk', 'Syne', -apple-system, sans-serif" font-size="20" font-weight="800" fill="#f2f2f2" letter-spacing="3">MOJADDID SHASHWOTO</text>
+  <text x="84" y="56" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="600" fill="#c6ff3d" letter-spacing="4">PHOTOGRAPHER / DHAKA</text>
+</svg>

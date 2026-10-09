@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Gallery",
-  description: "Complete photographic archive and selected work by Mojaddid Shashwoto.",
+  title: "Archive",
+  description: "Complete photographic archive by Mojaddid Shashwoto featuring street scenes, coastal landscapes, and portraiture.",
 };
 
 export default function GalleryLayout({

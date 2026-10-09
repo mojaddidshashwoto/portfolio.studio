@@ -39,13 +39,19 @@ export default function Navbar() {
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
-          {/* Brand Logo */}
+          {/* Brand Logo with Monogram */}
           <Link
             href="/"
             className="flex items-center gap-3 cursor-pointer group"
             data-cursor="hover"
           >
-            <span className="w-2 h-2 bg-[#c6ff3d] group-hover:rotate-45 transition-transform" />
+            <div className="w-7 h-7 rounded-sm bg-[#111] border border-white/10 group-hover:border-[#c6ff3d] p-1 flex items-center justify-center transition-colors">
+              <svg viewBox="0 0 120 120" className="w-full h-full" fill="none">
+                <path d="M26 86V34L46 62L66 34V86" stroke="#f2f2f2" strokeWidth="9" strokeLinecap="square" strokeLinejoin="miter"/>
+                <path d="M94 40H76V56H94V86H74" stroke="#f2f2f2" strokeWidth="9" strokeLinecap="square" strokeLinejoin="miter"/>
+                <rect x="88" y="24" width="9" height="9" fill="#c6ff3d"/>
+              </svg>
+            </div>
             <span className="font-display font-bold text-sm sm:text-base uppercase tracking-tight text-[#f2f2f2] group-hover:text-[#c6ff3d] transition-colors">
               MOJADDID SHASHWOTO
             </span>

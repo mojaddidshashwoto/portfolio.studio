@@ -90,7 +90,7 @@ export default function Hero() {
                 style={{ aspectRatio }}
               >
                 <Image
-                  src={heroPhoto.file || "/photos/5920.webp"}
+                  src={heroPhoto.file || "/photos/architectural-window-portrait.webp"}
                   alt={heroPhoto.alt}
                   width={heroPhoto.width || 1805}
                   height={heroPhoto.height || 2400}

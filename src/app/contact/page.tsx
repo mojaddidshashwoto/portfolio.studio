@@ -3,7 +3,7 @@ import ContactSection from "@/components/ContactSection";
 
 export const metadata = {
   title: "Contact",
-  description: "Contact Mojaddid Shashwoto.",
+  description: "Get in touch with photographer Mojaddid Shashwoto for inquiries, collaborations, and prints.",
 };
 
 export default function ContactPage() {

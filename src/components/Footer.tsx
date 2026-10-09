@@ -14,14 +14,20 @@ export default function Footer() {
           {/* Identity */}
           <div className="md:col-span-6 flex flex-col justify-between space-y-6">
             <div>
-              <div className="flex items-center gap-2 mb-3">
-                <span className="w-2 h-2 bg-[#c6ff3d]" />
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-6 h-6 rounded-sm bg-[#111] border border-white/10 p-1 flex items-center justify-center">
+                  <svg viewBox="0 0 120 120" className="w-full h-full" fill="none">
+                    <path d="M26 86V34L46 62L66 34V86" stroke="#f2f2f2" strokeWidth="9" strokeLinecap="square" strokeLinejoin="miter"/>
+                    <path d="M94 40H76V56H94V86H74" stroke="#f2f2f2" strokeWidth="9" strokeLinecap="square" strokeLinejoin="miter"/>
+                    <rect x="88" y="24" width="9" height="9" fill="#c6ff3d"/>
+                  </svg>
+                </div>
                 <span className="font-display font-bold text-sm tracking-widest uppercase">
                   MOJADDID SHASHWOTO
                 </span>
               </div>
               <p className="text-xs text-neutral-400 max-w-sm font-light leading-relaxed">
-                Photographer based in Dhaka. Documenting urban architecture, streetscapes, and quiet
+                Photographer in Dhaka. Documenting urban architecture, street perspectives, and quiet
                 portraits with deliberate attention to natural light, negative space, and geometry.
               </p>
             </div>
@@ -70,7 +76,7 @@ export default function Footer() {
                 <a
                   href="https://www.instagram.com/mojaddid_shashwoto/"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="me noopener noreferrer"
                   className="hover:text-[#c6ff3d] transition-colors inline-flex items-center gap-1.5"
                   data-cursor="hover"
                 >
@@ -80,11 +86,21 @@ export default function Footer() {
                 <a
                   href="https://www.facebook.com/Mojaddid.Shashwotoo/"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="me noopener noreferrer"
                   className="hover:text-[#c6ff3d] transition-colors inline-flex items-center gap-1.5"
                   data-cursor="hover"
                 >
                   <span>Facebook</span>
+                  <span className="text-[10px] text-neutral-500">↗</span>
+                </a>
+                <a
+                  href="https://mojaddidshashwoto.me"
+                  target="_blank"
+                  rel="me noopener noreferrer"
+                  className="hover:text-[#c6ff3d] transition-colors inline-flex items-center gap-1.5"
+                  data-cursor="hover"
+                >
+                  <span>Website</span>
                   <span className="text-[10px] text-neutral-500">↗</span>
                 </a>
               </div>

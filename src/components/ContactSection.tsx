@@ -9,32 +9,52 @@ export default function ContactSection() {
     message: "",
   });
 
+  const [honeypot, setHoneypot] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
+  const sanitize = (val: string, maxLen: number) => {
+    return val.slice(0, maxLen).replace(/[<>]/g, "").trim();
+  };
+
   const validate = () => {
     const errs: Record<string, string> = {};
-    if (!formData.name.trim()) errs.name = "Name required";
-    if (!formData.email.trim()) {
+    const name = sanitize(formData.name, 100);
+    const email = sanitize(formData.email, 150);
+    const message = sanitize(formData.message, 3000);
+
+    if (!name) errs.name = "Name required";
+    if (!email) {
       errs.email = "Email required";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       errs.email = "Valid email required";
     }
-    if (!formData.message.trim()) errs.message = "Message required";
+    if (!message) errs.message = "Message required";
     return errs;
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Bot detection via honeypot field
+    if (honeypot.trim()) {
+      setSubmitted(true);
+      return;
+    }
+
     const errs = validate();
     setErrors(errs);
 
     if (Object.keys(errs).length === 0) {
       setSubmitting(true);
-      const subject = encodeURIComponent(`Portfolio Inquiry from ${formData.name}`);
+      const cleanName = sanitize(formData.name, 100);
+      const cleanEmail = sanitize(formData.email, 150);
+      const cleanMsg = sanitize(formData.message, 3000);
+
+      const subject = encodeURIComponent(`Portfolio Inquiry from ${cleanName}`);
       const body = encodeURIComponent(
-        `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
+        `Name: ${cleanName}\nEmail: ${cleanEmail}\n\nMessage:\n${cleanMsg}`
       );
       const mailtoUrl = `mailto:sasotomujaddid@gmail.com?subject=${subject}&body=${body}`;
 
@@ -156,6 +176,19 @@ export default function ContactSection() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
+                  {/* Honeypot field for bot spam deterrence */}
+                  <div className="hidden" aria-hidden="true">
+                    <label htmlFor="company_hp">Company</label>
+                    <input
+                      id="company_hp"
+                      type="text"
+                      name="company_hp"
+                      value={honeypot}
+                      onChange={(e) => setHoneypot(e.target.value)}
+                      tabIndex={-1}
+                      autoComplete="off"
+                    />
+                  </div>
                   <div>
                     <label className="block font-mono text-[11px] uppercase tracking-wider text-neutral-400 mb-2">
                       01 / Name *
