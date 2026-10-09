@@ -47,6 +47,15 @@ export default function FramedPhoto({
           sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 33vw"
           className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-[1.015]"
         />
+
+        {/* Soft Desktop Hover Caption: fade only, no dimming overlay or tint */}
+        {photo.caption && (
+          <div className="hidden md:block absolute bottom-0 inset-x-0 p-3 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <p className="font-mono text-[11px] text-[#f2f2f2] italic tracking-wide leading-snug drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)]">
+              {photo.caption}
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

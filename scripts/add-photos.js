@@ -9,47 +9,61 @@ const rootJsonPath = path.join(process.cwd(), 'public/photos.json');
 
 // Configuration and metadata mapping for raw files
 // Only describes visible content, strictly no invented facts, camera info, or dates
+// Caption guidelines:
+// - One line, 5 to 12 words in English.
+// - Concrete, observational, quiet photographer's note describing what is visible.
+// - No clichés (no "dance", "whisper", "tapestry", "symphony", "canvas", "golden hour magic").
+// - No ending quotes, no emoji, no hashtags, no em-dashes.
+// - Gentle and neutral for people/children.
+// - Optional: set to "" to leave empty without blank space.
 const knownMetadata = {
   '20210804_163506-01.jpeg': {
     slug: 'banknote-in-grass',
     category: 'Street',
     alt: 'A 50 Taka banknote resting on grass with a green plant shoot growing over it',
+    caption: 'Folded currency pressed flat under fresh clover stems.',
     objectPosition: 'center 50%'
   },
   '20210817_152900-01-02.jpeg': {
     slug: 'pink-flower-rain-droplets',
     category: 'Landscape',
     alt: 'Vivid pink flower with water droplets on petals against dark background',
+    caption: 'Heavy water beads cling to a single pink petal.',
     objectPosition: 'center 50%'
   },
   '20210910_185856.jpg': {
     slug: 'crescent-moon-night-sky',
     category: 'Landscape',
     alt: 'Bright crescent moon isolated in dark night sky',
+    caption: 'One thin silver arc in deep black.',
     objectPosition: 'center 50%'
   },
   'IMG_20240404_144133.jpg': {
     slug: 'yellow-flower-dark-foliage',
     category: 'Landscape',
     alt: 'Single yellow flower blooming amidst dense dark green leaves in low light',
+    caption: 'Sharp yellow center among heavy green shadow.',
     objectPosition: 'center 50%'
   },
   'IMG_20240911_173428.jpg': {
     slug: 'pigeons-bamboo-perch',
     category: 'Street',
     alt: 'Row of pigeons and doves perched along a bamboo frame under overcast sky',
+    caption: 'Grey feathers huddle along a wet bamboo rail.',
     objectPosition: 'center 50%'
   },
   'IMG_20260910_125219.jpg': {
     slug: 'solitary-walker-coastal-poles',
     category: 'Landscape',
     alt: 'Solitary figure walking across sandy beach towards wooden poles in breaking waves',
+    caption: 'Footprints lead out toward vertical stakes in the wash.',
     objectPosition: 'center 50%'
   },
   'IMG_20260910_125314.jpg': {
     slug: 'fishing-boat-rough-waves',
     category: 'Landscape',
     alt: 'Small wooden boat carrying crew navigating whitecaps and turbulent sea waves',
+    caption: 'Men steady the rudder through chopped gray crests.',
     objectPosition: 'center 50%'
   }
 };
@@ -137,11 +151,12 @@ async function main() {
       .toBuffer();
     const blurDataURL = `data:image/webp;base64,${blurBuffer.toString('base64')}`;
 
-    // 8. Create new photos.json entry (Archive only, text-free, no invented facts)
+    // 8. Create new photos.json entry (Archive only, text-free, poetic caption)
     const newEntry = {
       id: outSlug,
       file: `/photos/${outFileName}`,
       alt: config.alt,
+      caption: config.caption || '',
       width: outMeta.width,
       height: outMeta.height,
       aspectRatio: `${outMeta.width}:${outMeta.height}`,

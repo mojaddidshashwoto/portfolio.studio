@@ -5,6 +5,7 @@ export interface Photo {
   file: string;
   src: string; // Alias for backward compatibility
   alt: string;
+  caption?: string;
   width: number;
   height: number;
   aspectRatio?: string;
@@ -20,6 +21,7 @@ export interface RawPhotoItem {
   id: string;
   file: string;
   alt: string;
+  caption?: string;
   width: number;
   height: number;
   aspectRatio?: string;
@@ -35,6 +37,7 @@ export interface RawPhotoItem {
 export const photos: Photo[] = (photosJson as RawPhotoItem[]).map((item) => ({
   ...item,
   src: item.file || item.src || "",
+  caption: item.caption || "",
   objectPosition: item.objectPosition || "center center",
 }));
 

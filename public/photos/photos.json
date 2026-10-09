@@ -11,7 +11,8 @@
     "category": "Portrait",
     "featured": true,
     "horizontalGallery": true,
-    "objectPosition": "center 42%"
+    "objectPosition": "center 42%",
+    "caption": "Tall panes of daylight hold a quiet silhouette."
   },
   {
     "id": "concrete-window-grille-portrait",
@@ -25,7 +26,8 @@
     "category": "Portrait",
     "featured": false,
     "horizontalGallery": false,
-    "objectPosition": "50% 25%"
+    "objectPosition": "50% 25%",
+    "caption": "Iron squares divide the face and the concrete wall."
   },
   {
     "id": "locomotive-6525",
@@ -39,7 +41,8 @@
     "category": "Street",
     "featured": true,
     "horizontalGallery": true,
-    "objectPosition": "center 50%"
+    "objectPosition": "center 50%",
+    "caption": "Blue steel carries dozens under the concrete flyover shadow."
   },
   {
     "id": "tree-lined-road-dhaka",
@@ -53,7 +56,8 @@
     "category": "Street",
     "featured": true,
     "horizontalGallery": true,
-    "objectPosition": "center 45%"
+    "objectPosition": "center 45%",
+    "caption": "A lone figure recedes between two tall rows of trees."
   },
   {
     "id": "peace-sign-shadow-sand",
@@ -67,7 +71,8 @@
     "category": "Street",
     "featured": true,
     "horizontalGallery": true,
-    "objectPosition": "center 60%"
+    "objectPosition": "center 60%",
+    "caption": "Two fingers rise inside a long dark outline."
   },
   {
     "id": "river-sunset-boatmen",
@@ -81,7 +86,8 @@
     "category": "Landscape",
     "featured": true,
     "horizontalGallery": true,
-    "objectPosition": "center 50%"
+    "objectPosition": "center 50%",
+    "caption": "Oars lift against low red sun over still water."
   },
   {
     "id": "sampan-midday-sun",
@@ -95,7 +101,8 @@
     "category": "Landscape",
     "featured": true,
     "horizontalGallery": true,
-    "objectPosition": "center 50%"
+    "objectPosition": "center 50%",
+    "caption": "Curved timber tilts across empty noon sand."
   },
   {
     "id": "railway-winter-fog",
@@ -109,7 +116,8 @@
     "category": "Street",
     "featured": true,
     "horizontalGallery": true,
-    "objectPosition": "center 50%"
+    "objectPosition": "center 50%",
+    "caption": "Cold air swallows the sleepers ahead of walking silhouettes."
   },
   {
     "id": "red-sampan-fishermen",
@@ -123,7 +131,8 @@
     "category": "Street",
     "featured": true,
     "horizontalGallery": true,
-    "objectPosition": "center 50%"
+    "objectPosition": "center 50%",
+    "caption": "White netting pools beside the red hull on wet ground."
   },
   {
     "id": "child-brick-window",
@@ -137,7 +146,8 @@
     "category": "Portrait",
     "featured": false,
     "horizontalGallery": false,
-    "objectPosition": "center 50%"
+    "objectPosition": "center 50%",
+    "caption": "Small fingers press between bars in red clay mortar."
   },
   {
     "id": "child-valley-window",
@@ -151,7 +161,8 @@
     "category": "Portrait",
     "featured": false,
     "horizontalGallery": false,
-    "objectPosition": "center 50%"
+    "objectPosition": "center 50%",
+    "caption": "Standing still before a window full of bright green."
   },
   {
     "id": "market-railway-tracks",
@@ -165,7 +176,8 @@
     "category": "Street",
     "featured": false,
     "horizontalGallery": false,
-    "objectPosition": "center 50%"
+    "objectPosition": "center 50%",
+    "caption": "Vegetable crates clear the line as yellow headlights approach."
   },
   {
     "id": "train-window-view",
@@ -179,7 +191,8 @@
     "category": "Street",
     "featured": false,
     "horizontalGallery": false,
-    "objectPosition": "center 50%"
+    "objectPosition": "center 50%",
+    "caption": "Green fields rush past the open carriage sill."
   },
   {
     "id": "blue-sampan-crew",
@@ -193,7 +206,8 @@
     "category": "Street",
     "featured": false,
     "horizontalGallery": false,
-    "objectPosition": "center 50%"
+    "objectPosition": "center 50%",
+    "caption": "Dark ropes uncoil around a blue wooden prow."
   },
   {
     "id": "yellow-sampan-landing",
@@ -207,7 +221,8 @@
     "category": "Street",
     "featured": false,
     "horizontalGallery": false,
-    "objectPosition": "center 50%"
+    "objectPosition": "center 50%",
+    "caption": "Yellow planks rest where the tide turned back."
   },
   {
     "id": "boats-on-grass",
@@ -221,7 +236,8 @@
     "category": "Landscape",
     "featured": false,
     "horizontalGallery": false,
-    "objectPosition": "center 50%"
+    "objectPosition": "center 50%",
+    "caption": "Black hulls dry in clover beneath tall pines."
   },
   {
     "id": "boat-in-surf",
@@ -235,7 +251,8 @@
     "category": "Landscape",
     "featured": false,
     "horizontalGallery": false,
-    "objectPosition": "center 50%"
+    "objectPosition": "center 50%",
+    "caption": "White foam slaps the wooden ribs at low water."
   },
   {
     "id": "crimson-river-twilight",
@@ -249,7 +266,8 @@
     "category": "Landscape",
     "featured": false,
     "horizontalGallery": false,
-    "objectPosition": "center 50%"
+    "objectPosition": "center 50%",
+    "caption": "Dusk turns the wide surface into red glass."
   },
   {
     "id": "fleet-shoreline",
@@ -263,7 +281,8 @@
     "category": "Landscape",
     "featured": false,
     "horizontalGallery": false,
-    "objectPosition": "center 50%"
+    "objectPosition": "center 50%",
+    "caption": "Half a dozen bows point together toward the woods."
   },
   {
     "id": "rocky-shore-tide",
@@ -277,7 +296,8 @@
     "category": "Landscape",
     "featured": false,
     "horizontalGallery": false,
-    "objectPosition": "center 50%"
+    "objectPosition": "center 50%",
+    "caption": "Dark wet stones lead to one distant mast."
   },
   {
     "id": "boats-flags-coast",
@@ -291,7 +311,8 @@
     "category": "Landscape",
     "featured": false,
     "horizontalGallery": false,
-    "objectPosition": "center 50%"
+    "objectPosition": "center 50%",
+    "caption": "Cloth pennants flutter over wide gray sand."
   },
   {
     "id": "crescent-prow-sea",
@@ -305,7 +326,8 @@
     "category": "Landscape",
     "featured": false,
     "horizontalGallery": false,
-    "objectPosition": "center 50%"
+    "objectPosition": "center 50%",
+    "caption": "Carved timber arches out toward the open water."
   },
   {
     "id": "bare-branches-twilight",
@@ -319,7 +341,8 @@
     "category": "Landscape",
     "featured": false,
     "horizontalGallery": false,
-    "objectPosition": "center 50%"
+    "objectPosition": "center 50%",
+    "caption": "Thin twigs net the late gray light together."
   },
   {
     "id": "plumeria-water",
@@ -333,7 +356,8 @@
     "category": "Landscape",
     "featured": false,
     "horizontalGallery": false,
-    "objectPosition": "center 50%"
+    "objectPosition": "center 50%",
+    "caption": "Pale blossoms hang close above their own reflection."
   },
   {
     "id": "palm-canopy-monsoon",
@@ -347,7 +371,8 @@
     "category": "Landscape",
     "featured": false,
     "horizontalGallery": false,
-    "objectPosition": "center 50%"
+    "objectPosition": "center 50%",
+    "caption": "Green fronds fan out under high white towers."
   },
   {
     "id": "banknote-in-grass",
@@ -361,7 +386,8 @@
     "category": "Street",
     "featured": false,
     "horizontalGallery": false,
-    "objectPosition": "center 50%"
+    "objectPosition": "center 50%",
+    "caption": "Folded currency pressed flat under fresh clover stems."
   },
   {
     "id": "pink-flower-rain-droplets",
@@ -375,7 +401,8 @@
     "category": "Landscape",
     "featured": false,
     "horizontalGallery": false,
-    "objectPosition": "center 50%"
+    "objectPosition": "center 50%",
+    "caption": "Heavy water beads cling to a single pink petal."
   },
   {
     "id": "crescent-moon-night-sky",
@@ -389,7 +416,8 @@
     "category": "Landscape",
     "featured": false,
     "horizontalGallery": false,
-    "objectPosition": "center 50%"
+    "objectPosition": "center 50%",
+    "caption": "One thin silver arc in deep black."
   },
   {
     "id": "yellow-flower-dark-foliage",
@@ -403,7 +431,8 @@
     "category": "Landscape",
     "featured": false,
     "horizontalGallery": false,
-    "objectPosition": "center 50%"
+    "objectPosition": "center 50%",
+    "caption": "Sharp yellow center among heavy green shadow."
   },
   {
     "id": "pigeons-bamboo-perch",
@@ -417,7 +446,8 @@
     "category": "Street",
     "featured": false,
     "horizontalGallery": false,
-    "objectPosition": "center 50%"
+    "objectPosition": "center 50%",
+    "caption": "Grey feathers huddle along a wet bamboo rail."
   },
   {
     "id": "solitary-walker-coastal-poles",
@@ -431,7 +461,8 @@
     "category": "Landscape",
     "featured": false,
     "horizontalGallery": false,
-    "objectPosition": "center 50%"
+    "objectPosition": "center 50%",
+    "caption": "Footprints lead out toward vertical stakes in the wash."
   },
   {
     "id": "fishing-boat-rough-waves",
@@ -445,6 +476,7 @@
     "category": "Landscape",
     "featured": false,
     "horizontalGallery": false,
-    "objectPosition": "center 50%"
+    "objectPosition": "center 50%",
+    "caption": "Men steady the rudder through chopped gray crests."
   }
 ]

@@ -203,7 +203,7 @@ export default function Lightbox({
           onClick={(e) => {
             if (e.target === e.currentTarget) onClose();
           }}
-          className="relative w-full h-full flex items-center justify-center p-4 sm:p-12 md:p-16"
+          className="relative w-full h-full flex flex-col items-center justify-center p-4 sm:p-10 md:p-14"
         >
           <motion.div
             key={photo.id}
@@ -215,7 +215,7 @@ export default function Lightbox({
               transform: `scale(${scale})`,
               transition: isPinching ? "none" : "transform 0.2s ease-out",
             }}
-            className="relative max-w-full max-h-full flex items-center justify-center overflow-hidden border border-white/15 bg-[#080808]"
+            className="relative max-w-full flex items-center justify-center overflow-hidden border border-white/15 bg-[#080808]"
           >
             <Image
               src={photo.file || photo.src}
@@ -226,9 +226,24 @@ export default function Lightbox({
               placeholder={photo.blurDataURL ? "blur" : "empty"}
               blurDataURL={photo.blurDataURL}
               sizes="92vw"
-              className="object-contain max-h-[82vh] sm:max-h-[85vh] w-auto h-auto pointer-events-none"
+              className="object-contain max-h-[72vh] sm:max-h-[78vh] w-auto h-auto pointer-events-none"
             />
           </motion.div>
+
+          {/* Poetic Caption: shown only in lightbox, below photo in mono italic type with high contrast */}
+          {photo.caption && (
+            <motion.div
+              key={`caption-${photo.id}`}
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.25, delay: 0.05 }}
+              className="mt-3.5 sm:mt-4 max-w-2xl px-4 text-center pointer-events-none z-30 mb-6 sm:mb-0"
+            >
+              <p className="font-mono text-xs sm:text-sm text-neutral-300 italic tracking-wide">
+                {photo.caption}
+              </p>
+            </motion.div>
+          )}
         </div>
 
         {/* Mobile gesture hint bar */}
