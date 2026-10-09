@@ -141,9 +141,9 @@ export default function Hero() {
           <span className="font-semibold">PHOTOGRAPHER / DHAKA</span>
         </div>
         <div className="hidden sm:flex items-center gap-4 text-neutral-500">
-          <span>STILL ARCHIVE</span>
+          <span>MOJADDID SHASHWOTO</span>
           <span className="text-white/20">|</span>
-          <span>PORTFOLIO 2026</span>
+          <span>STILL ARCHIVE 2026</span>
         </div>
       </div>
 
@@ -300,7 +300,7 @@ export default function Hero() {
                           priority={isTop}
                           placeholder={item.blurDataURL ? "blur" : "empty"}
                           blurDataURL={item.blurDataURL}
-                          sizes="60vw"
+                          sizes="(max-width: 640px) 60vw, (max-width: 1024px) 290px, 400px"
                           className="w-full h-full object-cover pointer-events-none"
                         />
                       </div>
@@ -346,7 +346,7 @@ export default function Hero() {
               </div>
 
               {/* Name: "MOJADDID" in solid off-white, "SHASHWOTO" as outline text with 2px lime stroke */}
-              <h1 className="font-display font-black uppercase tracking-tight leading-[0.88] select-none text-[clamp(3.8rem,6.8vw,7.6rem)]">
+              <div role="heading" aria-level={1} className="font-display font-black uppercase tracking-tight leading-[0.88] select-none text-[clamp(3.8rem,6.8vw,7.6rem)]">
                 <span className="block text-[#f2f2f2] overflow-hidden">
                   {shouldAnimateIntro ? (
                     line1Letters.map((char, i) => (
@@ -395,7 +395,7 @@ export default function Hero() {
                     "SHASHWOTO"
                   )}
                 </span>
-              </h1>
+              </div>
             </div>
 
             {/* Desktop Action Buttons */}
@@ -521,7 +521,7 @@ export default function Hero() {
                           priority={isTop}
                           placeholder={item.blurDataURL ? "blur" : "empty"}
                           blurDataURL={item.blurDataURL}
-                          sizes="400px"
+                          sizes="(max-width: 1280px) 360px, 400px"
                           className="w-full h-full object-cover pointer-events-none"
                         />
                       </div>

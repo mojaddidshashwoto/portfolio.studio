@@ -80,7 +80,7 @@ export default function Footer() {
                   className="hover:text-[#c6ff3d] transition-colors inline-flex items-center gap-1.5"
                   data-cursor="hover"
                 >
-                  <span>Instagram</span>
+                  <span>Mojaddid Shashwoto on Instagram</span>
                   <span className="text-[10px] text-neutral-500">↗</span>
                 </a>
                 <a
@@ -90,7 +90,7 @@ export default function Footer() {
                   className="hover:text-[#c6ff3d] transition-colors inline-flex items-center gap-1.5"
                   data-cursor="hover"
                 >
-                  <span>Facebook</span>
+                  <span>Mojaddid Shashwoto on Facebook</span>
                   <span className="text-[10px] text-neutral-500">↗</span>
                 </a>
                 <a
@@ -100,7 +100,7 @@ export default function Footer() {
                   className="hover:text-[#c6ff3d] transition-colors inline-flex items-center gap-1.5"
                   data-cursor="hover"
                 >
-                  <span>Website</span>
+                  <span>Mojaddid Shashwoto (mojaddidshashwoto.me)</span>
                   <span className="text-[10px] text-neutral-500">↗</span>
                 </a>
               </div>

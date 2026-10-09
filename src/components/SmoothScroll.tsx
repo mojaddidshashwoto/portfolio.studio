@@ -15,6 +15,10 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReducedMotion) return;
 
+    // On touch devices or mobile viewports, keep native mobile scrolling to eliminate TBT overhead
+    const isMobile = window.matchMedia("(max-width: 1023px)").matches || window.matchMedia("(pointer: coarse)").matches;
+    if (isMobile) return;
+
     gsap.registerPlugin(ScrollTrigger);
 
     const lenis = new Lenis({

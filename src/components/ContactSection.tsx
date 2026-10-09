@@ -2,7 +2,11 @@
 
 import { useState } from "react";
 
-export default function ContactSection() {
+export default function ContactSection({
+  headingLevel = "h2",
+}: {
+  headingLevel?: "h1" | "h2";
+}) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -13,6 +17,8 @@ export default function ContactSection() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+
+  const HeadingTag = headingLevel;
 
   const sanitize = (val: string, maxLen: number) => {
     return val.slice(0, maxLen).replace(/[<>]/g, "").trim();
@@ -80,9 +86,9 @@ export default function ContactSection() {
           {/* Left: Contact Information */}
           <div className="lg:col-span-5 flex flex-col justify-between">
             <div>
-              <h2 className="font-display text-4xl sm:text-6xl font-extrabold uppercase tracking-tight text-[#f2f2f2] leading-[0.9]">
+              <HeadingTag className="font-display text-4xl sm:text-6xl font-extrabold uppercase tracking-tight text-[#f2f2f2] leading-[0.9]">
                 Get in Touch.
-              </h2>
+              </HeadingTag>
               <p className="mt-6 text-sm text-neutral-400 font-light leading-relaxed max-w-md">
                 For questions, feedback, or print inquiries, send a message through the form or email directly.
               </p>
@@ -103,27 +109,37 @@ export default function ContactSection() {
 
                 <div className="pb-4 border-b border-white/10">
                   <span className="text-neutral-500 uppercase tracking-widest block text-[10px]">
-                    Social
+                    Social & Profiles
                   </span>
                   <div className="mt-2 flex flex-col gap-1">
                     <a
                       href="https://www.instagram.com/mojaddid_shashwoto/"
                       target="_blank"
-                      rel="noopener noreferrer"
+                      rel="me noopener noreferrer"
                       className="min-h-[44px] py-2 text-neutral-300 hover:text-[#c6ff3d] transition-colors inline-flex items-center gap-1.5 uppercase"
                       data-cursor="hover"
                     >
-                      <span>Instagram</span>
+                      <span>Mojaddid Shashwoto on Instagram</span>
                       <span className="text-[10px] text-neutral-500">↗</span>
                     </a>
                     <a
                       href="https://www.facebook.com/Mojaddid.Shashwotoo/"
                       target="_blank"
-                      rel="noopener noreferrer"
+                      rel="me noopener noreferrer"
                       className="min-h-[44px] py-2 text-neutral-300 hover:text-[#c6ff3d] transition-colors inline-flex items-center gap-1.5 uppercase"
                       data-cursor="hover"
                     >
-                      <span>Facebook</span>
+                      <span>Mojaddid Shashwoto on Facebook</span>
+                      <span className="text-[10px] text-neutral-500">↗</span>
+                    </a>
+                    <a
+                      href="https://mojaddidshashwoto.me"
+                      target="_blank"
+                      rel="me noopener noreferrer"
+                      className="min-h-[44px] py-2 text-neutral-300 hover:text-[#c6ff3d] transition-colors inline-flex items-center gap-1.5 uppercase"
+                      data-cursor="hover"
+                    >
+                      <span>Mojaddid Shashwoto Personal Website</span>
                       <span className="text-[10px] text-neutral-500">↗</span>
                     </a>
                   </div>

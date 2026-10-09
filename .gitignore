@@ -32,10 +32,12 @@ yarn-error.log*
 
 # env files
 .env*
+!.env.example
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
+lighthouse-*.json
 
 # raw photo originals
 /public/photos/raw/
