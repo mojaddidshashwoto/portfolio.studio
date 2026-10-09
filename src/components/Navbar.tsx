@@ -25,21 +25,13 @@ export default function Navbar() {
     { label: "Profile", href: "/about" },
   ];
 
-  const isHome = pathname === "/";
-  const shouldShow = !isHome || scrolled;
-
   return (
     <>
       <motion.header
-        initial={{ opacity: 0, y: -20 }}
-        animate={{
-          opacity: shouldShow ? 1 : 0,
-          y: shouldShow ? 0 : -20,
-        }}
-        transition={{ duration: 0.35, ease: "easeOut" }}
-        className={`fixed top-0 left-0 right-0 z-40 transition-colors duration-300 ${
-          shouldShow ? "pointer-events-auto" : "pointer-events-none"
-        } ${
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
           scrolled
             ? "bg-[#0a0a0a]/92 backdrop-blur-md border-b border-white/10 py-3 md:py-4 shadow-2xl"
             : "bg-[#0a0a0a]/40 md:bg-transparent backdrop-blur-sm md:backdrop-blur-none py-3.5 md:py-6"
