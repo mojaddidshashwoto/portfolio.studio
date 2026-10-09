@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Syne, Inter, JetBrains_Mono } from "next/font/google";
+import { Space_Grotesk, Syne, Inter, JetBrains_Mono, Anton } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import CustomCursor from "@/components/CustomCursor";
@@ -32,6 +32,13 @@ const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   display: "swap",
   weight: ["400", "500"],
+});
+
+const anton = Anton({
+  variable: "--font-hero-condensed",
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400"],
 });
 
 export const metadata: Metadata = {
@@ -140,7 +147,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${spaceGrotesk.variable} ${syne.variable} ${inter.variable} ${jetbrainsMono.variable} antialiased`}
+      className={`${spaceGrotesk.variable} ${syne.variable} ${inter.variable} ${jetbrainsMono.variable} ${anton.variable} antialiased`}
     >
       <head>
         <script

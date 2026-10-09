@@ -86,6 +86,14 @@
   text-transform: uppercase;
 }
 
+/* Condensed Editorial Headline Font (inspired by Bebas Neue / Anton) */
+.font-hero-condensed {
+  font-family: var(--font-hero-condensed), "Anton", "Bebas Neue", "Impact", "Arial Narrow", sans-serif;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  line-height: 0.86;
+}
+
 .font-mono-meta {
   font-family: var(--font-mono), monospace;
   letter-spacing: 0.08em;
