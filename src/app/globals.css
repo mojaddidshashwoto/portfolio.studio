@@ -136,3 +136,31 @@
     cursor: auto !important;
   }
 }
+
+/* Hero Thumbnail Drift */
+@keyframes heroDrift {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.hero-drift-track {
+  display: flex;
+  width: max-content;
+  animation: heroDrift 55s linear infinite;
+  will-change: transform;
+}
+
+.hero-drift-track:hover,
+.hero-drift-track:active {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-drift-track {
+    animation: none !important;
+  }
+}

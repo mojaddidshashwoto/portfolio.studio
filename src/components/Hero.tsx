@@ -1,431 +1,565 @@
 "use client";
 
-import { useRef } from "react";
+import { useState, useEffect, useRef, useCallback, useSyncExternalStore } from "react";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { getHeroPhoto } from "@/lib/photos";
+import { photos } from "@/lib/photos";
+
+interface StackPrint {
+  id: string;
+  file: string;
+  alt: string;
+  width: number;
+  height: number;
+  blurDataURL?: string;
+  type: string;
+}
+
+const STACK_PRINTS: StackPrint[] = [
+  {
+    id: "architectural-window-portrait",
+    file: "/photos/architectural-window-portrait.webp",
+    alt: "Profile portrait framed against a tall architectural window in natural backlight",
+    width: 1805,
+    height: 2400,
+    blurDataURL: "data:image/webp;base64,UklGRkYAAABXRUJQVlA4IDoAAAAQAgCdASoMABAABUB8JZwC7ADdHA7pfeoAAP7loNCm5QQ9A+u6EdH3EWribiQlqtUp6hnmsAsvpIAA",
+    type: "Portrait",
+  },
+  {
+    id: "river-sunset-boatmen",
+    file: "/photos/river-sunset-boatmen.webp",
+    alt: "Silhouetted boatmen on a river under dramatic clouds and setting sun",
+    width: 2400,
+    height: 1800,
+    blurDataURL: "data:image/webp;base64,UklGRkgAAABXRUJQVlA4IDwAAACQAQCdASoQAAwABUB8JZgCdADVhbAA8Zj/otE9MpCjHEyr5oQtjlyc0snr0lQWuKBLsgEmOufnkKA0AAA=",
+    type: "Landscape",
+  },
+  {
+    id: "locomotive-6525",
+    file: "/photos/locomotive-6525.webp",
+    alt: "Passengers and commuters riding on a blue diesel locomotive under an elevated flyover in Dhaka",
+    width: 2400,
+    height: 1350,
+    blurDataURL: "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAADwAQCdASoQAAkABUB8JaACdADboDgZWAAA+LVEnAP2g0wbWePa5ZqrO4RksiJ9idGqs7Ixm9gkiFqdSHmaakrQ5PgAAA==",
+    type: "Street",
+  },
+];
+
+const emptySubscribe = () => () => {};
 
 export default function Hero() {
-  const heroPhoto = getHeroPhoto();
   const reducedMotion = useReducedMotion();
   const containerRef = useRef<HTMLElement>(null);
 
+  // Intro animation state: runs once per session (< 1.5s), skipped on repeat visits
+  const isFirstVisit = useSyncExternalStore(
+    emptySubscribe,
+    () => {
+      try {
+        return !sessionStorage.getItem("hero_intro_seen");
+      } catch {
+        return false;
+      }
+    },
+    () => false
+  );
+
+  useEffect(() => {
+    try {
+      sessionStorage.setItem("hero_intro_seen", "true");
+    } catch {
+      // Ignore if sessionStorage is disabled
+    }
+  }, []);
+
+  // Stack shuffle state
+  const [order, setOrder] = useState<number[]>([0, 1, 2]);
+  const [slidingCard, setSlidingCard] = useState<number | null>(null);
+
+  const handleShuffle = useCallback(() => {
+    if (slidingCard !== null) return;
+    const currentTop = order[0];
+    setSlidingCard(currentTop);
+
+    setTimeout(() => {
+      setOrder(([top, ...rest]) => [...rest, top]);
+      setSlidingCard(null);
+    }, 190);
+  }, [order, slidingCard]);
+
+  // Desktop focus ring following cursor within the stack area
+  const [mousePos, setMousePos] = useState<{ x: number; y: number } | null>(null);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setMousePos({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    });
+  };
+
+  const handleMouseLeave = () => {
+    setMousePos(null);
+  };
+
+  // Subtle parallax between name and stack on scroll (disabled on reduced motion)
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"],
   });
 
-  const parallaxY = useTransform(scrollYProgress, [0, 1], [0, -35]);
+  const nameParallaxY = useTransform(scrollYProgress, [0, 1], [0, reducedMotion ? 0 : -25]);
+  const stackParallaxY = useTransform(scrollYProgress, [0, 1], [0, reducedMotion ? 0 : 20]);
 
-  const nameLine1 = "MOJADDID";
-  const nameLine2 = "SHASHWOTO";
+  // Strip thumbnails from catalog (first 10, duplicated for continuous drift)
+  const driftPhotos = photos.slice(0, 10);
+
+  // Timing configuration for intro under 1.5s
+  const shouldAnimateIntro = isFirstVisit && !reducedMotion;
+
+  const line1Letters = "MOJADDID".split("");
+  const line2Letters = "SHASHWOTO".split("");
 
   return (
     <section
       ref={containerRef}
-      className="relative w-full min-h-[100dvh] h-auto lg:h-[100dvh] bg-[#0a0a0a] border-b border-white/10 flex flex-col justify-between pt-20 sm:pt-24 pb-6 px-4 sm:px-6 md:px-12 overflow-hidden"
+      className="relative w-full h-[100dvh] min-h-[100dvh] max-h-[100dvh] bg-[#0a0a0a] border-b border-white/10 flex flex-col justify-between pt-20 sm:pt-24 pb-4 px-4 sm:px-6 md:px-12 overflow-hidden select-none"
     >
-      {/* 1px Grid Line System Overlay */}
-      <div
-        className="pointer-events-none absolute inset-0 max-w-7xl mx-auto px-4 sm:px-6 md:px-12 grid grid-cols-4 sm:grid-cols-6 lg:grid-cols-12 divide-x divide-white/[0.04]"
-        aria-hidden="true"
-      >
-        <div />
-        <div />
-        <div />
-        <div />
-        <div className="hidden sm:block" />
-        <div className="hidden sm:block" />
-        <div className="hidden lg:block" />
-        <div className="hidden lg:block" />
-        <div className="hidden lg:block" />
-        <div className="hidden lg:block" />
-        <div className="hidden lg:block" />
-        <div className="hidden lg:block" />
-      </div>
-
-      {/* Vertical Mono Text Line Down Left Edge (Desktop & Tablet) */}
-      <div
-        className="hidden md:flex absolute left-4 lg:left-6 top-1/2 -translate-y-1/2 -rotate-90 origin-left items-center gap-3 font-mono text-[10px] tracking-[0.25em] text-neutral-400 uppercase select-none z-10"
-        aria-hidden="true"
-      >
-        <span className="w-1.5 h-1.5 bg-[#c6ff3d] shrink-0" />
-        <span>MOJADDID SHASHWOTO</span>
-        <span className="w-8 h-px bg-white/20" />
-        <span>ARCHIVE 2026 // DHAKA</span>
-      </div>
+      {/* Intro Lime Accent Line (draws across in ~0.35s, under 1.5s total intro) */}
+      <motion.div
+        initial={shouldAnimateIntro ? { scaleX: 0 } : { scaleX: 1 }}
+        animate={{ scaleX: 1 }}
+        transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+        className="absolute top-0 left-0 right-0 h-[2px] bg-[#c6ff3d] origin-left z-30"
+      />
 
       {/* Top Editorial Bar */}
-      <div className="max-w-7xl mx-auto w-full flex items-center justify-between font-mono text-[11px] uppercase tracking-wider text-neutral-400 z-10">
+      <div className="max-w-7xl mx-auto w-full flex items-center justify-between font-mono text-[10px] sm:text-[11px] uppercase tracking-wider text-neutral-400 z-10 shrink-0">
         <div className="flex items-center gap-2 text-[#c6ff3d]">
-          <span className="w-1.5 h-1.5 bg-[#c6ff3d]" />
+          <span className="w-1.5 h-1.5 bg-[#c6ff3d] shrink-0" />
           <span className="font-semibold">PHOTOGRAPHER / DHAKA</span>
         </div>
-        <div className="hidden sm:flex items-center gap-4 text-neutral-400">
-          <span>PORTFOLIO 2026</span>
-          <span className="text-white/20">|</span>
+        <div className="hidden sm:flex items-center gap-4 text-neutral-500">
           <span>STILL ARCHIVE</span>
+          <span className="text-white/20">|</span>
+          <span>PORTFOLIO 2026</span>
         </div>
       </div>
 
-      {/* Central Content Container */}
-      <div className="max-w-7xl mx-auto w-full my-auto py-4 sm:py-6 z-10">
-        {/* DESKTOP LAYOUT (lg & up): Split Screen */}
-        <div className="hidden lg:grid lg:grid-cols-12 gap-12 xl:gap-16 items-center">
-          {/* Left Column: Name & Statement */}
-          <div className="lg:col-span-7 flex flex-col justify-center space-y-8 pl-8 xl:pl-12">
-            <div>
-              <div className="font-mono text-xs uppercase tracking-widest text-[#c6ff3d] mb-4 flex items-center gap-2">
-                <span className="w-1.5 h-1.5 bg-[#c6ff3d]" />
-                <span>INDEPENDENT PHOTOGRAPHER</span>
+      {/* Central Content Area */}
+      <div className="max-w-7xl mx-auto w-full my-auto py-2 sm:py-4 z-10">
+        {/* ======================================================== */}
+        {/* MOBILE LAYOUT (< 1024px): Stack on right, Name overlaps left edge */}
+        {/* ======================================================== */}
+        <div className="lg:hidden relative w-full flex flex-col justify-center">
+          <div className="relative w-full flex items-center justify-between">
+            {/* Left: Name overlapping stack's left edge by ~15% (never covering face) */}
+            <motion.div
+              style={{ y: nameParallaxY }}
+              className="z-20 relative -mr-[18%] sm:-mr-[15%] max-w-[68vw] pointer-events-none"
+            >
+              <div className="font-mono text-[10px] text-[#c6ff3d] uppercase tracking-widest flex items-center gap-1.5 mb-2">
+                <span className="w-1.5 h-1.5 bg-[#c6ff3d] shrink-0" />
+                <span>PHOTOGRAPHER / DHAKA</span>
               </div>
 
-              {/* Name with Letter-by-Letter Reveal */}
-              <h1 className="font-display font-black uppercase tracking-tight text-[#f2f2f2] leading-[0.88] select-none text-6xl xl:text-7xl 2xl:text-8xl">
-                <span className="block overflow-hidden pb-1">
-                  {nameLine1.split("").map((char, i) => (
-                    <motion.span
-                      key={i}
-                      initial={reducedMotion ? false : { opacity: 0, y: "100%" }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{
-                        duration: 0.35,
-                        delay: 0.05 + i * 0.025,
-                        ease: [0.16, 1, 0.3, 1],
-                      }}
-                      className="inline-block"
-                    >
-                      {char}
-                    </motion.span>
-                  ))}
+              {/* Real H1: MOJADDID solid off-white, SHASHWOTO 2px lime stroke outline text */}
+              <h1 className="font-display font-black uppercase tracking-tight leading-[0.88] text-[clamp(2.35rem,11.2vw,4.5rem)]">
+                <span className="block text-[#f2f2f2] overflow-hidden">
+                  {shouldAnimateIntro ? (
+                    line1Letters.map((char, i) => (
+                      <motion.span
+                        key={i}
+                        initial={{ opacity: 0, y: "100%" }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{
+                          duration: 0.3,
+                          delay: 0.15 + i * 0.02,
+                          ease: "easeOut",
+                        }}
+                        className="inline-block"
+                      >
+                        {char}
+                      </motion.span>
+                    ))
+                  ) : (
+                    "MOJADDID"
+                  )}
                 </span>
-                <span className="block overflow-hidden pt-1">
-                  {nameLine2.split("").map((char, i) => (
-                    <motion.span
-                      key={i}
-                      initial={reducedMotion ? false : { opacity: 0, y: "100%" }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{
-                        duration: 0.35,
-                        delay: 0.18 + i * 0.025,
-                        ease: [0.16, 1, 0.3, 1],
-                      }}
-                      className="inline-block text-[#f2f2f2]"
-                    >
-                      {char}
-                    </motion.span>
-                  ))}
+                <span
+                  className="block overflow-hidden"
+                  style={{
+                    WebkitTextStroke: "2px #c6ff3d",
+                    color: "transparent",
+                  }}
+                >
+                  {shouldAnimateIntro ? (
+                    line2Letters.map((char, i) => (
+                      <motion.span
+                        key={i}
+                        initial={{ opacity: 0, y: "100%" }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{
+                          duration: 0.3,
+                          delay: 0.28 + i * 0.02,
+                          ease: "easeOut",
+                        }}
+                        className="inline-block"
+                      >
+                        {char}
+                      </motion.span>
+                    ))
+                  ) : (
+                    "SHASHWOTO"
+                  )}
                 </span>
               </h1>
+            </motion.div>
 
-              <p className="mt-6 text-base text-neutral-300 font-light leading-relaxed max-w-lg">
-                Documenting urban architecture, street perspectives, and quiet portraits.
-                Treating light, geometry, and negative space with deliberate restraint.
-              </p>
-            </div>
-
-            {/* Thumb-sized Action Buttons */}
-            <div className="flex items-center gap-5 pt-4 font-mono text-xs">
-              <Link
-                href="#featured"
-                className="min-h-[48px] px-6 py-3 bg-[#c6ff3d] text-[#0a0a0a] font-bold uppercase tracking-wider hover:bg-[#b5f524] transition-colors flex items-center justify-center"
-                data-cursor="hover"
-              >
-                Selected Work ↓
-              </Link>
-              <Link
-                href="/gallery"
-                className="min-h-[48px] px-6 py-3 border border-white/20 text-[#f2f2f2] uppercase tracking-wider hover:border-[#c6ff3d] hover:text-[#c6ff3d] transition-colors flex items-center justify-center"
-                data-cursor="hover"
-              >
-                Archive →
-              </Link>
-            </div>
-          </div>
-
-          {/* Right Column: Tall Portrait Frame with Viewfinder Details */}
-          <div className="lg:col-span-5 flex justify-end">
+            {/* Right: Interactive 3-print stack with viewfinder corner brackets */}
             <motion.div
-              style={reducedMotion ? {} : { y: parallaxY }}
-              className="relative w-full max-w-[390px] xl:max-w-[430px]"
+              style={{ y: stackParallaxY }}
+              className="z-10 shrink-0 w-[58vw] max-w-[240px] sm:max-w-[290px] aspect-[4/5] mr-1 sm:mr-4 relative"
             >
-              {/* Thin lime outline offset behind the portrait on desktop */}
+              {/* Lime Viewfinder Corner Brackets */}
+              <div className="pointer-events-none absolute -inset-2.5 sm:-inset-3 z-30" aria-hidden="true">
+                <svg className="absolute top-0 left-0 w-3.5 h-3.5 sm:w-4 sm:h-4" viewBox="0 0 20 20" fill="none">
+                  <path d="M1 19V1H19" stroke="#c6ff3d" strokeWidth="2" strokeLinecap="square" />
+                </svg>
+                <svg className="absolute top-0 right-0 w-3.5 h-3.5 sm:w-4 sm:h-4" viewBox="0 0 20 20" fill="none">
+                  <path d="M19 19V1H1" stroke="#c6ff3d" strokeWidth="2" strokeLinecap="square" />
+                </svg>
+                <svg className="absolute bottom-0 left-0 w-3.5 h-3.5 sm:w-4 sm:h-4" viewBox="0 0 20 20" fill="none">
+                  <path d="M1 1V19H19" stroke="#c6ff3d" strokeWidth="2" strokeLinecap="square" />
+                </svg>
+                <svg className="absolute bottom-0 right-0 w-3.5 h-3.5 sm:w-4 sm:h-4" viewBox="0 0 20 20" fill="none">
+                  <path d="M19 1V19H1" stroke="#c6ff3d" strokeWidth="2" strokeLinecap="square" />
+                </svg>
+              </div>
+
+              {/* Tap to shuffle stack container */}
               <div
-                className="absolute -bottom-4 -right-4 w-full h-full border border-[#c6ff3d]/40 pointer-events-none z-0"
-                aria-hidden="true"
-              />
-
-              {/* Portrait Frame Container */}
-              <div className="relative z-10 w-full aspect-[1805/2400] bg-[#0a0a0a] border border-white/15 overflow-visible">
-                {/* Viewfinder Corner Brackets */}
-                <div
-                  className="absolute -inset-2.5 pointer-events-none z-20"
-                  aria-hidden="true"
-                >
-                  {/* Top Left */}
-                  <svg className="absolute top-0 left-0 w-4 h-4" viewBox="0 0 16 16">
-                    <path
-                      d="M 0 14 L 0 0 L 14 0"
-                      stroke="#c6ff3d"
-                      strokeWidth="2"
-                      fill="none"
-                    />
-                  </svg>
-                  {/* Top Right */}
-                  <svg className="absolute top-0 right-0 w-4 h-4" viewBox="0 0 16 16">
-                    <path
-                      d="M 2 0 L 16 0 L 16 14"
-                      stroke="#c6ff3d"
-                      strokeWidth="2"
-                      fill="none"
-                    />
-                  </svg>
-                  {/* Bottom Left */}
-                  <svg className="absolute bottom-0 left-0 w-4 h-4" viewBox="0 0 16 16">
-                    <path
-                      d="M 0 2 L 0 16 L 14 16"
-                      stroke="#c6ff3d"
-                      strokeWidth="2"
-                      fill="none"
-                    />
-                  </svg>
-                  {/* Bottom Right */}
-                  <svg className="absolute bottom-0 right-0 w-4 h-4" viewBox="0 0 16 16">
-                    <path
-                      d="M 2 16 L 16 16 L 16 2"
-                      stroke="#c6ff3d"
-                      strokeWidth="2"
-                      fill="none"
-                    />
-                  </svg>
-                </div>
-
-                {/* Focus Ring (pulses once on load near focal center) */}
-                <motion.div
-                  initial={reducedMotion ? false : { scale: 1.6, opacity: 0 }}
-                  animate={{
-                    scale: [1.6, 1, 1.2, 1],
-                    opacity: [0, 0.9, 0.6, 0.3],
-                  }}
-                  transition={{ duration: 0.9, delay: 0.7, ease: "easeOut" }}
-                  className="absolute top-[38%] left-[50%] -translate-x-1/2 -translate-y-1/2 pointer-events-none z-20 flex items-center justify-center w-8 h-8 rounded-full border border-[#c6ff3d]"
-                  aria-hidden="true"
-                >
-                  <div className="w-1 h-1 rounded-full bg-[#c6ff3d]" />
-                </motion.div>
-
-                {/* Soft Clip-path Reveal: Frame opens upward */}
-                <motion.div
-                  initial={
-                    reducedMotion
-                      ? false
-                      : { clipPath: "inset(0% 0% 100% 0%)", opacity: 0 }
+                role="button"
+                tabIndex={0}
+                aria-label="Photo print stack. Tap to shuffle prints."
+                onClick={handleShuffle}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    handleShuffle();
                   }
-                  animate={{ clipPath: "inset(0% 0% 0% 0%)", opacity: 1 }}
-                  transition={{
-                    duration: 0.5,
-                    delay: 0.1,
-                    ease: [0.16, 1, 0.3, 1],
-                  }}
-                  className="w-full h-full overflow-hidden bg-[#0a0a0a]"
-                >
-                  <Image
-                    src={heroPhoto.file || "/photos/architectural-window-portrait.webp"}
-                    alt={heroPhoto.alt}
-                    width={heroPhoto.width || 1805}
-                    height={heroPhoto.height || 2400}
-                    priority
-                    placeholder={heroPhoto.blurDataURL ? "blur" : "empty"}
-                    blurDataURL={heroPhoto.blurDataURL}
-                    sizes="(max-width: 1024px) 70vw, 420px"
-                    className="w-full h-full object-cover object-[center_38%]"
-                  />
-                </motion.div>
+                }}
+                className="relative w-full h-full cursor-pointer focus:outline-none"
+              >
+                {order.map((cardIndex, posIndex) => {
+                  const item = STACK_PRINTS[cardIndex];
+                  const isTop = posIndex === 0;
+                  const isSliding = slidingCard === cardIndex;
+
+                  // Target rotation & offset:
+                  // Pos 0 (top): 0°
+                  // Pos 1 (middle): -6°
+                  // Pos 2 (bottom): +5°
+                  const baseRotate = posIndex === 0 ? 0 : posIndex === 1 ? -6 : 5;
+                  const baseScale = posIndex === 0 ? 1 : posIndex === 1 ? 0.96 : 0.92;
+                  const baseX = posIndex === 0 ? 0 : posIndex === 1 ? -6 : 6;
+                  const baseY = posIndex === 0 ? 0 : posIndex === 1 ? 4 : 8;
+                  const zIndex = isTop ? 10 : posIndex === 1 ? 5 : 2;
+
+                  return (
+                    <motion.div
+                      key={item.id}
+                      initial={
+                        shouldAnimateIntro
+                          ? { opacity: 0, y: 35, rotate: 0 }
+                          : false
+                      }
+                      animate={{
+                        opacity: 1,
+                        x: isSliding ? 48 : baseX,
+                        y: isSliding ? -18 : baseY,
+                        rotate: isSliding ? 10 : baseRotate,
+                        scale: baseScale,
+                      }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 280,
+                        damping: 24,
+                        delay: shouldAnimateIntro ? 0.5 + posIndex * 0.1 : 0,
+                      }}
+                      style={{ zIndex }}
+                      className="absolute inset-0 bg-white p-1 sm:p-1.5 shadow-[0_12px_28px_rgba(0,0,0,0.85)] rounded-[1px] overflow-hidden"
+                    >
+                      <div className="relative w-full h-full bg-[#111] overflow-hidden aspect-[4/5]">
+                        <Image
+                          src={item.file}
+                          alt={item.alt}
+                          width={item.width}
+                          height={item.height}
+                          priority={isTop}
+                          placeholder={item.blurDataURL ? "blur" : "empty"}
+                          blurDataURL={item.blurDataURL}
+                          sizes="60vw"
+                          className="w-full h-full object-cover pointer-events-none"
+                        />
+                      </div>
+                    </motion.div>
+                  );
+                })}
               </div>
             </motion.div>
           </div>
-        </div>
 
-        {/* MOBILE & TABLET LAYOUT (< lg): Stacked Portrait + Overlapping Name */}
-        <div className="lg:hidden flex flex-col justify-center w-full">
-          {/* Main Visual Unit: Tall Portrait on right + Name overlapping left edge */}
-          <div className="relative w-full max-w-md mx-auto pt-2 pb-4">
-            {/* The 4:5 Portrait Frame filling ~70% screen width, offset to the right */}
-            <div className="relative w-[70%] sm:w-[65%] ml-auto aspect-[1805/2400] z-0">
-              {/* Viewfinder Corner Brackets */}
-              <div
-                className="absolute -inset-2 pointer-events-none z-20"
-                aria-hidden="true"
-              >
-                {/* Top Left */}
-                <svg className="absolute top-0 left-0 w-3.5 h-3.5" viewBox="0 0 14 14">
-                  <path
-                    d="M 0 12 L 0 0 L 12 0"
-                    stroke="#c6ff3d"
-                    strokeWidth="1.75"
-                    fill="none"
-                  />
-                </svg>
-                {/* Top Right */}
-                <svg className="absolute top-0 right-0 w-3.5 h-3.5" viewBox="0 0 14 14">
-                  <path
-                    d="M 2 0 L 14 0 L 14 12"
-                    stroke="#c6ff3d"
-                    strokeWidth="1.75"
-                    fill="none"
-                  />
-                </svg>
-                {/* Bottom Left */}
-                <svg className="absolute bottom-0 left-0 w-3.5 h-3.5" viewBox="0 0 14 14">
-                  <path
-                    d="M 0 2 L 0 14 L 12 14"
-                    stroke="#c6ff3d"
-                    strokeWidth="1.75"
-                    fill="none"
-                  />
-                </svg>
-                {/* Bottom Right */}
-                <svg className="absolute bottom-0 right-0 w-3.5 h-3.5" viewBox="0 0 14 14">
-                  <path
-                    d="M 2 14 L 14 14 L 14 2"
-                    stroke="#c6ff3d"
-                    strokeWidth="1.75"
-                    fill="none"
-                  />
-                </svg>
-              </div>
-
-              {/* Pulsing Focus Ring */}
-              <motion.div
-                initial={reducedMotion ? false : { scale: 1.6, opacity: 0 }}
-                animate={{
-                  scale: [1.6, 1, 1.2, 1],
-                  opacity: [0, 0.9, 0.6, 0.3],
-                }}
-                transition={{ duration: 0.9, delay: 0.65, ease: "easeOut" }}
-                className="absolute top-[38%] left-[50%] -translate-x-1/2 -translate-y-1/2 pointer-events-none z-20 flex items-center justify-center w-7 h-7 rounded-full border border-[#c6ff3d]"
-                aria-hidden="true"
-              >
-                <div className="w-1 h-1 rounded-full bg-[#c6ff3d]" />
-              </motion.div>
-
-              {/* Soft Clip-path Reveal: Frame opens upward */}
-              <motion.div
-                initial={
-                  reducedMotion
-                    ? false
-                    : { clipPath: "inset(0% 0% 100% 0%)", opacity: 0 }
-                }
-                animate={{ clipPath: "inset(0% 0% 0% 0%)", opacity: 1 }}
-                transition={{
-                  duration: 0.5,
-                  delay: 0.1,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
-                className="w-full h-full border border-white/15 overflow-hidden bg-[#0a0a0a]"
-              >
-                <Image
-                  src={heroPhoto.file || "/photos/architectural-window-portrait.webp"}
-                  alt={heroPhoto.alt}
-                  width={heroPhoto.width || 1805}
-                  height={heroPhoto.height || 2400}
-                  priority
-                  placeholder={heroPhoto.blurDataURL ? "blur" : "empty"}
-                  blurDataURL={heroPhoto.blurDataURL}
-                  sizes="70vw"
-                  className="w-full h-full object-cover object-[center_38%]"
-                />
-              </motion.div>
-            </div>
-
-            {/* Name Overlapping Edge of Photo Frame (~15%), sitting mostly on dark bg */}
-            {/* Positioned at bottom-left of the visual area so it never covers the face */}
-            <div className="absolute left-0 bottom-4 sm:bottom-6 z-20 max-w-[85%] pointer-events-auto">
-              <h1
-                className="font-display font-black uppercase tracking-tight text-[#f2f2f2] leading-[0.88] select-none drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]"
-                style={{
-                  fontSize: "clamp(1.9rem, 7.8vw, 3.8rem)",
-                }}
-              >
-                <span className="block overflow-hidden pb-0.5">
-                  {nameLine1.split("").map((char, i) => (
-                    <motion.span
-                      key={i}
-                      initial={reducedMotion ? false : { opacity: 0, y: "100%" }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{
-                        duration: 0.35,
-                        delay: 0.05 + i * 0.025,
-                        ease: [0.16, 1, 0.3, 1],
-                      }}
-                      className="inline-block"
-                    >
-                      {char}
-                    </motion.span>
-                  ))}
-                </span>
-                <span className="block overflow-hidden pt-0.5 text-[#f2f2f2]">
-                  {nameLine2.split("").map((char, i) => (
-                    <motion.span
-                      key={i}
-                      initial={reducedMotion ? false : { opacity: 0, y: "100%" }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{
-                        duration: 0.35,
-                        delay: 0.18 + i * 0.025,
-                        ease: [0.16, 1, 0.3, 1],
-                      }}
-                      className="inline-block"
-                    >
-                      {char}
-                    </motion.span>
-                  ))}
-                </span>
-              </h1>
-            </div>
-          </div>
-
-          {/* Mobile Buttons (Thumb-sized: at least 44px tap target) */}
-          <div className="mt-4 flex items-center gap-3 w-full max-w-md mx-auto font-mono text-xs">
+          {/* Thumb-sized Action Buttons (min 44px tap targets) */}
+          <div className="flex items-center gap-3 pt-5 z-20">
             <Link
-              href="#featured"
-              className="flex-1 min-h-[46px] px-4 py-3 bg-[#c6ff3d] text-[#0a0a0a] font-bold uppercase tracking-wider text-center flex items-center justify-center"
+              href="/#featured"
+              className="min-h-[46px] px-5 py-3 bg-[#c6ff3d] text-[#0a0a0a] font-mono font-bold text-xs uppercase tracking-wider hover:bg-[#b5f524] transition-colors flex items-center justify-center shrink-0"
               data-cursor="hover"
             >
-              Selected Work ↓
+              Selected Work
             </Link>
             <Link
               href="/gallery"
-              className="flex-1 min-h-[46px] px-4 py-3 border border-white/20 text-[#f2f2f2] uppercase tracking-wider text-center flex items-center justify-center hover:border-[#c6ff3d] hover:text-[#c6ff3d] transition-colors"
+              className="min-h-[46px] px-5 py-3 border border-white/20 text-[#f2f2f2] font-mono font-semibold text-xs uppercase tracking-wider hover:border-[#c6ff3d] hover:text-[#c6ff3d] transition-colors flex items-center justify-center shrink-0"
               data-cursor="hover"
             >
-              Archive →
+              Archive
             </Link>
           </div>
         </div>
+
+        {/* ======================================================== */}
+        {/* DESKTOP LAYOUT (lg & up): Split Screen (Name Left, Stack Right) */}
+        {/* ======================================================== */}
+        <div className="hidden lg:grid lg:grid-cols-12 gap-8 xl:gap-14 items-center">
+          {/* Left Column: Name, Description & Buttons */}
+          <motion.div
+            style={{ y: nameParallaxY }}
+            className="lg:col-span-7 flex flex-col justify-center space-y-6 xl:space-y-8 pl-4 xl:pl-8"
+          >
+            <div>
+              <div className="font-mono text-xs uppercase tracking-widest text-[#c6ff3d] mb-4 flex items-center gap-2">
+                <span className="w-1.5 h-1.5 bg-[#c6ff3d]" />
+                <span>PHOTOGRAPHER / DHAKA</span>
+              </div>
+
+              {/* Name: "MOJADDID" in solid off-white, "SHASHWOTO" as outline text with 2px lime stroke */}
+              <h1 className="font-display font-black uppercase tracking-tight leading-[0.88] select-none text-[clamp(3.8rem,6.8vw,7.6rem)]">
+                <span className="block text-[#f2f2f2] overflow-hidden">
+                  {shouldAnimateIntro ? (
+                    line1Letters.map((char, i) => (
+                      <motion.span
+                        key={i}
+                        initial={{ opacity: 0, y: "100%" }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{
+                          duration: 0.35,
+                          delay: 0.12 + i * 0.02,
+                          ease: "easeOut",
+                        }}
+                        className="inline-block"
+                      >
+                        {char}
+                      </motion.span>
+                    ))
+                  ) : (
+                    "MOJADDID"
+                  )}
+                </span>
+                <span
+                  className="block overflow-hidden pb-1"
+                  style={{
+                    WebkitTextStroke: "2px #c6ff3d",
+                    color: "transparent",
+                  }}
+                >
+                  {shouldAnimateIntro ? (
+                    line2Letters.map((char, i) => (
+                      <motion.span
+                        key={i}
+                        initial={{ opacity: 0, y: "100%" }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{
+                          duration: 0.35,
+                          delay: 0.26 + i * 0.02,
+                          ease: "easeOut",
+                        }}
+                        className="inline-block"
+                      >
+                        {char}
+                      </motion.span>
+                    ))
+                  ) : (
+                    "SHASHWOTO"
+                  )}
+                </span>
+              </h1>
+            </div>
+
+            {/* Desktop Action Buttons */}
+            <div className="flex items-center gap-4 pt-2">
+              <Link
+                href="/#featured"
+                className="min-h-[48px] px-6 py-3 bg-[#c6ff3d] text-[#0a0a0a] font-mono font-bold text-xs uppercase tracking-wider hover:bg-[#b5f524] transition-colors flex items-center justify-center shrink-0"
+                data-cursor="hover"
+              >
+                Selected Work
+              </Link>
+              <Link
+                href="/gallery"
+                className="min-h-[48px] px-6 py-3 border border-white/20 text-[#f2f2f2] font-mono font-semibold text-xs uppercase tracking-wider hover:border-[#c6ff3d] hover:text-[#c6ff3d] transition-colors flex items-center justify-center shrink-0"
+                data-cursor="hover"
+              >
+                Archive
+              </Link>
+              <span className="font-mono text-[11px] text-neutral-500 uppercase tracking-widest pl-2">
+                {"//"} CLICK STACK TO SHUFFLE
+              </span>
+            </div>
+          </motion.div>
+
+          {/* Right Column: Larger Interactive 3-Print Stack */}
+          <motion.div
+            style={{ y: stackParallaxY }}
+            className="lg:col-span-5 flex justify-center items-center"
+          >
+            <div
+              className="relative w-[310px] xl:w-[360px] 2xl:w-[400px] aspect-[4/5]"
+              onMouseMove={handleMouseMove}
+              onMouseLeave={handleMouseLeave}
+            >
+              {/* Lime Viewfinder Corner Brackets */}
+              <div className="pointer-events-none absolute -inset-4 xl:-inset-5 z-30" aria-hidden="true">
+                <svg className="absolute top-0 left-0 w-5 h-5 xl:w-6 xl:h-6" viewBox="0 0 24 24" fill="none">
+                  <path d="M1 23V1H23" stroke="#c6ff3d" strokeWidth="2" strokeLinecap="square" />
+                </svg>
+                <svg className="absolute top-0 right-0 w-5 h-5 xl:w-6 xl:h-6" viewBox="0 0 24 24" fill="none">
+                  <path d="M23 23V1H1" stroke="#c6ff3d" strokeWidth="2" strokeLinecap="square" />
+                </svg>
+                <svg className="absolute bottom-0 left-0 w-5 h-5 xl:w-6 xl:h-6" viewBox="0 0 24 24" fill="none">
+                  <path d="M1 1V23H23" stroke="#c6ff3d" strokeWidth="2" strokeLinecap="square" />
+                </svg>
+                <svg className="absolute bottom-0 right-0 w-5 h-5 xl:w-6 xl:h-6" viewBox="0 0 24 24" fill="none">
+                  <path d="M23 1V23H1" stroke="#c6ff3d" strokeWidth="2" strokeLinecap="square" />
+                </svg>
+              </div>
+
+              {/* Desktop Cursor Focus Ring */}
+              {mousePos && (
+                <div
+                  className="hidden lg:block absolute pointer-events-none z-40 transition-transform duration-75 ease-out"
+                  style={{
+                    left: mousePos.x,
+                    top: mousePos.y,
+                    transform: "translate(-50%, -50%)",
+                  }}
+                  aria-hidden="true"
+                >
+                  <div className="w-8 h-8 rounded-full border border-[#c6ff3d] flex items-center justify-center">
+                    <div className="w-1 h-1 rounded-full bg-[#c6ff3d]" />
+                  </div>
+                </div>
+              )}
+
+              {/* Print Stack Card Deck */}
+              <div
+                role="button"
+                tabIndex={0}
+                aria-label="Photo print stack. Click or press Enter to shuffle photos."
+                onClick={handleShuffle}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    handleShuffle();
+                  }
+                }}
+                className="relative w-full h-full cursor-pointer focus:outline-none"
+              >
+                {order.map((cardIndex, posIndex) => {
+                  const item = STACK_PRINTS[cardIndex];
+                  const isTop = posIndex === 0;
+                  const isSliding = slidingCard === cardIndex;
+
+                  const baseRotate = posIndex === 0 ? 0 : posIndex === 1 ? -6 : 5;
+                  const baseScale = posIndex === 0 ? 1 : posIndex === 1 ? 0.96 : 0.92;
+                  const baseX = posIndex === 0 ? 0 : posIndex === 1 ? -8 : 8;
+                  const baseY = posIndex === 0 ? 0 : posIndex === 1 ? 6 : 12;
+                  const zIndex = isTop ? 10 : posIndex === 1 ? 5 : 2;
+
+                  return (
+                    <motion.div
+                      key={item.id}
+                      initial={
+                        shouldAnimateIntro
+                          ? { opacity: 0, y: 40, rotate: 0 }
+                          : false
+                      }
+                      animate={{
+                        opacity: 1,
+                        x: isSliding ? 70 : baseX,
+                        y: isSliding ? -24 : baseY,
+                        rotate: isSliding ? 12 : baseRotate,
+                        scale: baseScale,
+                      }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 280,
+                        damping: 24,
+                        delay: shouldAnimateIntro ? 0.5 + posIndex * 0.1 : 0,
+                      }}
+                      style={{ zIndex }}
+                      className="absolute inset-0 bg-white p-1.5 shadow-[0_18px_36px_rgba(0,0,0,0.85)] rounded-[2px] overflow-hidden"
+                    >
+                      <div className="relative w-full h-full bg-[#111] overflow-hidden aspect-[4/5]">
+                        <Image
+                          src={item.file}
+                          alt={item.alt}
+                          width={item.width}
+                          height={item.height}
+                          priority={isTop}
+                          placeholder={item.blurDataURL ? "blur" : "empty"}
+                          blurDataURL={item.blurDataURL}
+                          sizes="400px"
+                          className="w-full h-full object-cover pointer-events-none"
+                        />
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </div>
+          </motion.div>
+        </div>
       </div>
 
-      {/* Bottom Editorial Bar with Scroll Cue */}
-      <div className="max-w-7xl mx-auto w-full flex items-center justify-between font-mono text-[10px] text-neutral-400 uppercase tracking-widest z-10 pt-2 border-t border-white/5">
-        <div className="hidden sm:block">
-          <span>PORTFOLIO // DHAKA</span>
-        </div>
-
-        {/* Clear Scroll Cue */}
-        <div className="mx-auto sm:mx-0 flex items-center gap-2 text-neutral-300">
-          <span>SCROLL</span>
-          <motion.span
-            animate={reducedMotion ? {} : { y: [0, 3, 0] }}
-            transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-            className="text-[#c6ff3d] font-bold text-xs"
-          >
-            ↓
-          </motion.span>
-        </div>
-
-        <div className="hidden sm:block">
-          <span>2026</span>
+      {/* ======================================================== */}
+      {/* SLOW HORIZONTAL THUMBNAIL DRIFT STRIP (under hero) */}
+      {/* ======================================================== */}
+      <div className="w-full pt-2 border-t border-white/10 overflow-hidden shrink-0 z-10">
+        <div className="hero-drift-track py-1 items-center gap-3">
+          {[...driftPhotos, ...driftPhotos].map((photo, idx) => (
+            <Link
+              key={`${photo.id}-${idx}`}
+              href="/gallery"
+              data-cursor="hover"
+              className="shrink-0 h-10 sm:h-12 w-auto aspect-[4/5] border border-white/15 bg-white p-0.5 shadow-md hover:border-[#c6ff3d] transition-colors"
+            >
+              <div className="relative w-full h-full overflow-hidden bg-[#111]">
+                <Image
+                  src={photo.file || photo.src}
+                  alt={photo.alt}
+                  width={photo.width}
+                  height={photo.height}
+                  sizes="60px"
+                  placeholder={photo.blurDataURL ? "blur" : "empty"}
+                  blurDataURL={photo.blurDataURL}
+                  className="w-full h-full object-cover pointer-events-none"
+                />
+              </div>
+            </Link>
+          ))}
         </div>
       </div>
     </section>

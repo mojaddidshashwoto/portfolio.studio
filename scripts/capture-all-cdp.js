@@ -8,17 +8,16 @@ const chromePath = 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
 const artifactDir = 'C:\\Users\\Mojaddid Shashwoto\\.gemini\\antigravity-ide\\brain\\52d2b796-01d3-4275-83d2-8e0fbad42ed9';
 
 const targets = [
-  { name: 'hero_360px.png', width: 360, height: 780, url: 'http://localhost:3000' },
-  { name: 'hero_390px.png', width: 390, height: 844, url: 'http://localhost:3000' },
-  { name: 'hero_430px.png', width: 430, height: 932, url: 'http://localhost:3000' },
-  { name: 'hero_768px.png', width: 768, height: 1024, url: 'http://localhost:3000' },
-  { name: 'hero_1440px.png', width: 1440, height: 900, url: 'http://localhost:3000' },
-  { name: 'gallery_390px.png', width: 390, height: 844, url: 'http://localhost:3000/gallery' }
+  { name: 'hero_360px.png', width: 360, height: 780, isMobile: true },
+  { name: 'hero_390px.png', width: 390, height: 844, isMobile: true },
+  { name: 'hero_430px.png', width: 430, height: 932, isMobile: true },
+  { name: 'hero_768px.png', width: 768, height: 1024, isMobile: false },
+  { name: 'hero_1440px.png', width: 1440, height: 900, isMobile: false }
 ];
 
 async function captureOne(target) {
   const outFile = path.join(artifactDir, target.name);
-  console.log(`Starting capture for ${target.name} (${target.width}x${target.height}) -> ${target.url}...`);
+  console.log(`Starting capture for ${target.name} (${target.width}x${target.height})...`);
 
   const tempProfile = fs.mkdtempSync(path.join(os.tmpdir(), 'chrome-cap-'));
 
@@ -73,21 +72,27 @@ async function captureOne(target) {
     await send('Emulation.setDeviceMetricsOverride', {
       width: target.width,
       height: target.height,
-      deviceScaleFactor: 1,
-      mobile: target.width < 768
+      deviceScaleFactor: target.isMobile ? 2 : 1,
+      mobile: target.isMobile
     });
 
     // Navigate to target URL
-    await send('Page.navigate', { url: target.url });
+    await send('Page.navigate', { url: 'http://localhost:3000' });
 
-    // Wait 3.0 seconds for fonts, next/image hydration, and animation reveal
-    await new Promise(r => setTimeout(r, 3000));
+    // Wait 3.5 seconds for fonts, next/image hydration, and animation reveal
+    await new Promise(r => setTimeout(r, 3500));
 
-    // Ensure scrolled to top
+    // Ensure curtain is hidden & scrolled to top
     await send('Runtime.evaluate', {
-      expression: 'window.scrollTo(0, 0); document.documentElement.scrollTop = 0; document.body.scrollTop = 0;'
+      expression: `(() => {
+        const curtains = document.querySelectorAll('.origin-top');
+        curtains.forEach(c => c.style.display = 'none');
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+      })()`
     });
-    await new Promise(r => setTimeout(r, 400));
+    await new Promise(r => setTimeout(r, 600));
 
     const screenshot = await send('Page.captureScreenshot', { format: 'png' });
     const buffer = Buffer.from(screenshot.data, 'base64');
@@ -108,7 +113,7 @@ async function main() {
   for (const t of targets) {
     await captureOne(t);
   }
-  console.log('All CDP screenshots successfully generated!');
+  console.log('All hero screenshots successfully generated!');
 }
 
 main().catch(err => {
