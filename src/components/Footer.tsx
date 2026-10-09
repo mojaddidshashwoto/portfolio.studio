@@ -45,22 +45,22 @@ export default function Footer() {
             <ul className="space-y-2 uppercase text-neutral-400">
               <li>
                 <Link href="/#featured" className="hover:text-[#c6ff3d] transition-colors" data-cursor="hover">
-                  01 / Selected Work
+                  Selected Work
                 </Link>
               </li>
               <li>
                 <Link href="/gallery" className="hover:text-[#c6ff3d] transition-colors" data-cursor="hover">
-                  02 / Archive
+                  Archive
                 </Link>
               </li>
               <li>
                 <Link href="/about" className="hover:text-[#c6ff3d] transition-colors" data-cursor="hover">
-                  03 / Profile
+                  Profile
                 </Link>
               </li>
               <li>
                 <Link href="/contact" className="hover:text-[#c6ff3d] transition-colors" data-cursor="hover">
-                  04 / Contact
+                  Contact
                 </Link>
               </li>
             </ul>

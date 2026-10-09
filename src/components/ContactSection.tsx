@@ -71,8 +71,9 @@ export default function ContactSection() {
   return (
     <section id="contact" className="relative w-full py-28 px-6 md:px-12 bg-[#0a0a0a] border-b border-white/10">
       <div className="max-w-7xl mx-auto">
-        <div className="font-mono text-xs uppercase tracking-widest text-[#c6ff3d] mb-4">
-          04 / CONTACT
+        <div className="font-mono text-xs uppercase tracking-widest text-[#c6ff3d] mb-4 inline-flex items-center gap-2 px-2.5 py-1 border border-[#c6ff3d]/30 bg-[#c6ff3d]/5">
+          <span className="w-1.5 h-1.5 bg-[#c6ff3d]" />
+          <span>Contact</span>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 border-t border-white/10 pt-12">
@@ -191,7 +192,7 @@ export default function ContactSection() {
                   </div>
                   <div>
                     <label className="block font-mono text-[11px] uppercase tracking-wider text-neutral-400 mb-2">
-                      01 / Name *
+                      Name *
                     </label>
                     <input
                       type="text"
@@ -209,7 +210,7 @@ export default function ContactSection() {
 
                   <div>
                     <label className="block font-mono text-[11px] uppercase tracking-wider text-neutral-400 mb-2">
-                      02 / Email *
+                      Email *
                     </label>
                     <input
                       type="email"
@@ -227,7 +228,7 @@ export default function ContactSection() {
 
                   <div>
                     <label className="block font-mono text-[11px] uppercase tracking-wider text-neutral-400 mb-2">
-                      03 / Message *
+                      Message *
                     </label>
                     <textarea
                       rows={6}

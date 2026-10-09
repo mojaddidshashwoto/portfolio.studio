@@ -34,8 +34,9 @@ export default function AboutSection() {
     <section id="about" className="relative w-full py-24 px-6 md:px-12 bg-[#0a0a0a] border-b border-white/10">
       <div className="max-w-7xl mx-auto">
         {/* Section Top Mono Label */}
-        <div className="font-mono text-xs uppercase tracking-widest text-[#c6ff3d] mb-4">
-          03 / PROFILE
+        <div className="font-mono text-xs uppercase tracking-widest text-[#c6ff3d] mb-4 inline-flex items-center gap-2 px-2.5 py-1 border border-[#c6ff3d]/30 bg-[#c6ff3d]/5">
+          <span className="w-1.5 h-1.5 bg-[#c6ff3d]" />
+          <span>Profile</span>
         </div>
 
         {/* Editorial Asymmetrical Grid */}
@@ -59,13 +60,10 @@ export default function AboutSection() {
                 </p>
               </div>
 
-              {/* Core Photographic Principles */}
+              {/* Core Photographic Principles (No numbers) */}
               <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-6 pt-8 border-t border-white/10">
-                {principles.map((p) => (
-                  <div key={p.num} className="space-y-2">
-                    <span className="font-mono text-xs font-bold text-[#c6ff3d]">
-                      {p.num} {"//"}
-                    </span>
+                {principles.map((p, idx) => (
+                  <div key={idx} className="space-y-2 border-l border-white/10 pl-4 sm:pl-3">
                     <h3 className="font-sans text-xs font-semibold uppercase tracking-wider text-[#f2f2f2]">
                       {p.title}
                     </h3>

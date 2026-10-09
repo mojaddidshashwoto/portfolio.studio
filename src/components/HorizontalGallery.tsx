@@ -79,10 +79,10 @@ export default function HorizontalGallery({
     >
       {/* Top Editorial Index Bar */}
       <div className="w-full border-b border-white/10 px-5 sm:px-6 md:px-12 py-4 sm:py-5 flex items-center justify-between">
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           <span className="w-1.5 h-1.5 bg-[#c6ff3d]" />
-          <span className="font-mono text-xs text-[#c6ff3d] uppercase tracking-widest font-semibold">
-            01 / SELECTED WORK
+          <span className="font-mono text-xs text-[#c6ff3d] uppercase tracking-widest font-semibold px-2.5 py-1 border border-[#c6ff3d]/30 bg-[#c6ff3d]/5">
+            Selected Work
           </span>
         </div>
 

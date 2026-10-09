@@ -29,8 +29,8 @@ export default function GalleryPage() {
             ← Return To Home
           </Link>
 
-          <span className="font-mono text-[11px] tracking-widest text-[#c6ff3d] uppercase">
-            {"//"} ARCHIVE
+          <span className="font-mono text-[11px] tracking-widest text-[#c6ff3d] uppercase px-2 py-0.5 border border-[#c6ff3d]/30 bg-[#c6ff3d]/5">
+            Archive
           </span>
         </div>
 

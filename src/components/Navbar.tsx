@@ -20,10 +20,9 @@ export default function Navbar() {
   }, []);
 
   const navItems = [
-    { label: "01/Selected Work", href: "/#featured" },
-    { label: "02/Archive", href: "/gallery" },
-    { label: "03/Profile", href: "/about" },
-    { label: "04/Contact", href: "/contact" },
+    { label: "Selected Work", href: "/#featured" },
+    { label: "Archive", href: "/gallery" },
+    { label: "Profile", href: "/about" },
   ];
 
   return (
@@ -57,18 +56,18 @@ export default function Navbar() {
             </span>
           </Link>
 
-          {/* Desktop Nav Items with subtle dark blur backdrop */}
-          <nav className="hidden md:flex items-center gap-1 bg-[#0a0a0a]/80 backdrop-blur-md border border-white/10 px-4 py-1.5 font-mono text-xs uppercase tracking-wider">
+          {/* Desktop Nav Items in separate boxes */}
+          <nav className="hidden md:flex items-center gap-2 font-mono text-xs uppercase tracking-wider">
             {navItems.map((item, idx) => {
               const isActive = pathname === item.href;
               return (
                 <Link
                   key={idx}
                   href={item.href}
-                  className={`px-3 py-1.5 transition-colors relative min-h-[44px] flex items-center ${
+                  className={`px-3.5 py-2 border transition-all duration-200 min-h-[44px] flex items-center bg-[#0a0a0a]/80 backdrop-blur-md ${
                     isActive
-                      ? "text-[#c6ff3d] font-semibold"
-                      : "text-neutral-300 hover:text-white"
+                      ? "border-[#c6ff3d] text-[#c6ff3d] font-semibold bg-[#c6ff3d]/10"
+                      : "border-white/10 text-neutral-300 hover:text-white hover:border-white/30"
                   }`}
                   data-cursor="hover"
                 >
@@ -78,7 +77,7 @@ export default function Navbar() {
             })}
           </nav>
 
-          {/* Desktop Contact Button */}
+          {/* Desktop Contact Button (Only contact item in header) */}
           <div className="hidden md:flex items-center">
             <Link
               href="/contact"
@@ -133,10 +132,10 @@ export default function Navbar() {
             </button>
           </div>
 
-          {/* Navigation Links with Large Tap Targets */}
+          {/* Navigation Links with Large Tap Targets (No numbers, single list) */}
           <div className="py-8 flex flex-col gap-2">
             <span className="font-mono text-[10px] uppercase tracking-widest text-[#c6ff3d] mb-3">
-              {"//"} NAVIGATION
+              NAVIGATION
             </span>
             {navItems.map((item, idx) => {
               const isActive = pathname === item.href;
@@ -149,9 +148,9 @@ export default function Navbar() {
                     isActive ? "text-[#c6ff3d]" : "text-[#f2f2f2] hover:text-[#c6ff3d]"
                   }`}
                 >
-                  <span>{item.label.split("/")[1] || item.label}</span>
-                  <span className="font-mono text-xs text-neutral-500 font-normal">
-                    0{idx + 1} →
+                  <span>{item.label}</span>
+                  <span className="font-mono text-sm text-neutral-500 font-normal">
+                    →
                   </span>
                 </Link>
               );

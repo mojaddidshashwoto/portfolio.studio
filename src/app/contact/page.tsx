@@ -16,8 +16,8 @@ export default function ContactPage() {
         >
           ← Return To Index
         </Link>
-        <span className="font-mono text-[11px] tracking-widest text-[#c6ff3d] uppercase">
-          {"//"} CONTACT
+        <span className="font-mono text-[11px] tracking-widest text-[#c6ff3d] uppercase px-2 py-0.5 border border-[#c6ff3d]/30 bg-[#c6ff3d]/5">
+          Contact
         </span>
       </div>
 

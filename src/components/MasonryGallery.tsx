@@ -27,9 +27,11 @@ export default function MasonryGallery({
         {/* Editorial Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 sm:pb-8 border-b border-white/10">
           <div>
-            <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-[#c6ff3d] mb-2">
+            <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-[#c6ff3d] mb-3">
               <span className="w-1.5 h-1.5 bg-[#c6ff3d]" />
-              <span>02 / ARCHIVE</span>
+              <span className="px-2.5 py-1 border border-[#c6ff3d]/30 bg-[#c6ff3d]/5 font-semibold">
+                Archive
+              </span>
             </div>
             <h2 className="font-display text-3xl sm:text-5xl md:text-6xl font-black uppercase tracking-tight text-[#f2f2f2]">
               Archive

@@ -46,8 +46,9 @@ export default function AboutPage() {
 
         {/* Hero Header */}
         <div className="mb-14">
-          <div className="font-mono text-xs uppercase tracking-widest text-[#c6ff3d] mb-3">
-            03 / PROFILE
+          <div className="font-mono text-xs uppercase tracking-widest text-[#c6ff3d] mb-4 inline-flex items-center gap-2 px-2.5 py-1 border border-[#c6ff3d]/30 bg-[#c6ff3d]/5">
+            <span className="w-1.5 h-1.5 bg-[#c6ff3d]" />
+            <span>Profile</span>
           </div>
           <h1 className="font-display text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight uppercase text-[#f2f2f2] leading-[0.88]">
             Mojaddid Shashwoto
@@ -83,12 +84,11 @@ export default function AboutPage() {
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {principles.map((p) => (
+            {principles.map((p, idx) => (
               <div
-                key={p.num}
+                key={idx}
                 className="border border-white/10 p-6 space-y-3 bg-[#0a0a0a]"
               >
-                <span className="font-mono text-xs text-[#c6ff3d] font-bold">{p.num} {"//"}</span>
                 <h3 className="font-sans font-bold text-sm uppercase text-[#f2f2f2]">{p.title}</h3>
                 <p className="text-xs text-neutral-400 font-light leading-relaxed">{p.desc}</p>
               </div>
