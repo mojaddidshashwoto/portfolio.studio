@@ -134,13 +134,13 @@ export default function Hero() {
         className="absolute top-0 left-0 right-0 h-[2px] bg-[#c6ff3d] origin-left z-30"
       />
 
-      {/* Top Editorial Bar */}
-      <div className="max-w-7xl mx-auto w-full flex items-center justify-between font-mono text-[10px] sm:text-[11px] uppercase tracking-wider text-neutral-400 z-10 shrink-0">
+      {/* Top Editorial Bar (Desktop only, mobile has dedicated label above stack) */}
+      <div className="hidden lg:flex max-w-7xl mx-auto w-full items-center justify-between font-mono text-[10px] sm:text-[11px] uppercase tracking-wider text-neutral-400 z-10 shrink-0">
         <div className="flex items-center gap-2 text-[#c6ff3d]">
           <span className="w-1.5 h-1.5 bg-[#c6ff3d] shrink-0" />
           <span className="font-semibold">PHOTOGRAPHER / DHAKA</span>
         </div>
-        <div className="hidden sm:flex items-center gap-4 text-neutral-500">
+        <div className="flex items-center gap-4 text-neutral-500">
           <span>MOJADDID SHASHWOTO</span>
           <span className="text-white/20">|</span>
           <span>STILL ARCHIVE 2026</span>
@@ -150,28 +150,114 @@ export default function Hero() {
       {/* Central Content Area */}
       <div className="max-w-7xl mx-auto w-full my-auto py-2 sm:py-4 z-10">
         {/* ======================================================== */}
-        {/* MOBILE LAYOUT (< 1024px): Stack on right, Name overlaps left edge */}
+        {/* MOBILE LAYOUT (< 1024px): Stack Centered, Name layered ON photo */}
         {/* ======================================================== */}
-        <div className="lg:hidden relative w-full flex flex-col justify-center">
-          <div className="relative w-full flex items-center justify-between">
-            {/* Left: Name overlapping stack's left edge by ~15% (never covering face) */}
-            <motion.div
-              style={{ y: nameParallaxY }}
-              className="z-20 relative -mr-[18%] sm:-mr-[15%] max-w-[68vw] pointer-events-none"
-            >
-              <div className="font-mono text-[10px] text-[#c6ff3d] uppercase tracking-widest flex items-center gap-1.5 mb-2">
-                <span className="w-1.5 h-1.5 bg-[#c6ff3d] shrink-0" />
-                <span>PHOTOGRAPHER / DHAKA</span>
-              </div>
+        <div className="lg:hidden relative w-full flex flex-col items-center justify-center">
+          {/* Eyebrow Label & Shuffle hint */}
+          <div className="w-full max-w-[310px] sm:max-w-[340px] flex items-center justify-between font-mono text-[10px] sm:text-[11px] uppercase tracking-wider mb-3 px-0.5">
+            <div className="flex items-center gap-1.5 text-[#c6ff3d]">
+              <span className="w-1.5 h-1.5 bg-[#c6ff3d] shrink-0" />
+              <span className="font-semibold">PHOTOGRAPHER / DHAKA</span>
+            </div>
+            <span className="text-neutral-500 text-[10px] tracking-widest">
+              {"//"} TAP TO SHUFFLE
+            </span>
+          </div>
 
-              {/* Real H1: MOJADDID solid off-white, SHASHWOTO 2px lime stroke outline text */}
-              <h1 className="font-display font-black uppercase tracking-tight leading-[0.88] text-[clamp(2.35rem,11.2vw,4.5rem)]">
-                <span className="block text-[#f2f2f2] overflow-hidden">
+          {/* Central Print Stack Container with Headline Layered ON the Photo */}
+          <div className="relative w-[78vw] max-w-[310px] sm:max-w-[340px] aspect-[4/5] mx-auto">
+            {/* Lime Viewfinder Corner Brackets */}
+            <div className="pointer-events-none absolute -inset-2.5 sm:-inset-3 z-20" aria-hidden="true">
+              <svg className="absolute top-0 left-0 w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 20 20" fill="none">
+                <path d="M1 19V1H19" stroke="#c6ff3d" strokeWidth="2" strokeLinecap="square" />
+              </svg>
+              <svg className="absolute top-0 right-0 w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 20 20" fill="none">
+                <path d="M19 19V1H1" stroke="#c6ff3d" strokeWidth="2" strokeLinecap="square" />
+              </svg>
+              <svg className="absolute bottom-0 left-0 w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 20 20" fill="none">
+                <path d="M1 1V19H19" stroke="#c6ff3d" strokeWidth="2" strokeLinecap="square" />
+              </svg>
+              <svg className="absolute bottom-0 right-0 w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 20 20" fill="none">
+                <path d="M19 1V19H1" stroke="#c6ff3d" strokeWidth="2" strokeLinecap="square" />
+              </svg>
+            </div>
+
+            {/* Interactive 3-print stack Card Deck */}
+            <div
+              role="button"
+              tabIndex={0}
+              aria-label="Photo print stack. Tap to shuffle prints."
+              onClick={handleShuffle}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  handleShuffle();
+                }
+              }}
+              className="relative w-full h-full cursor-pointer focus:outline-none"
+            >
+              {order.map((cardIndex, posIndex) => {
+                const item = STACK_PRINTS[cardIndex];
+                const isTop = posIndex === 0;
+                const isSliding = slidingCard === cardIndex;
+
+                const baseRotate = posIndex === 0 ? 0 : posIndex === 1 ? -6 : 5;
+                const baseScale = posIndex === 0 ? 1 : posIndex === 1 ? 0.96 : 0.92;
+                const baseX = posIndex === 0 ? 0 : posIndex === 1 ? -6 : 6;
+                const baseY = posIndex === 0 ? 0 : posIndex === 1 ? 4 : 8;
+                const zIndex = isTop ? 10 : posIndex === 1 ? 5 : 2;
+
+                return (
+                  <motion.div
+                    key={item.id}
+                    initial={
+                      shouldAnimateIntro
+                        ? { opacity: 0, y: 25, rotate: 0 }
+                        : false
+                    }
+                    animate={{
+                      opacity: 1,
+                      x: isSliding ? 34 : baseX,
+                      y: isSliding ? -14 : baseY,
+                      rotate: isSliding ? 8 : baseRotate,
+                      scale: baseScale,
+                    }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 280,
+                      damping: 24,
+                      delay: shouldAnimateIntro ? 0.4 + posIndex * 0.08 : 0,
+                    }}
+                    style={{ zIndex }}
+                    className="absolute inset-0 bg-white p-1 sm:p-1.5 shadow-[0_12px_28px_rgba(0,0,0,0.85)] rounded-[1px] overflow-hidden"
+                  >
+                    <div className="relative w-full h-full bg-[#111] overflow-hidden aspect-[4/5]">
+                      <Image
+                        src={item.file}
+                        alt={item.alt}
+                        width={item.width}
+                        height={item.height}
+                        priority={isTop}
+                        placeholder={item.blurDataURL ? "blur" : "empty"}
+                        blurDataURL={item.blurDataURL}
+                        sizes="(max-width: 640px) 78vw, (max-width: 1024px) 340px, 400px"
+                        className="w-full h-full object-cover pointer-events-none"
+                      />
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+
+            {/* Headline MOJADDID SHASHWOTO layered ON TOP of the photo (z-30) */}
+            <div className="absolute -left-3 sm:-left-5 bottom-3 sm:bottom-4 z-30 pointer-events-none max-w-[92vw]">
+              <h1 className="font-display font-black uppercase tracking-tight leading-[0.86] text-[clamp(2.4rem,11.2vw,3.8rem)] select-none drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
+                <span className="block text-[#f2f2f2] drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
                   {shouldAnimateIntro ? (
                     line1Letters.map((char, i) => (
                       <motion.span
                         key={i}
-                        initial={{ opacity: 0, y: "100%" }}
+                        initial={{ opacity: 0, y: "80%" }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{
                           duration: 0.3,
@@ -188,7 +274,7 @@ export default function Hero() {
                   )}
                 </span>
                 <span
-                  className="block overflow-hidden"
+                  className="block drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]"
                   style={{
                     WebkitTextStroke: "2px #c6ff3d",
                     color: "transparent",
@@ -198,7 +284,7 @@ export default function Hero() {
                     line2Letters.map((char, i) => (
                       <motion.span
                         key={i}
-                        initial={{ opacity: 0, y: "100%" }}
+                        initial={{ opacity: 0, y: "80%" }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{
                           duration: 0.3,
@@ -215,114 +301,21 @@ export default function Hero() {
                   )}
                 </span>
               </h1>
-            </motion.div>
-
-            {/* Right: Interactive 3-print stack with viewfinder corner brackets */}
-            <motion.div
-              style={{ y: stackParallaxY }}
-              className="z-10 shrink-0 w-[58vw] max-w-[240px] sm:max-w-[290px] aspect-[4/5] mr-1 sm:mr-4 relative"
-            >
-              {/* Lime Viewfinder Corner Brackets */}
-              <div className="pointer-events-none absolute -inset-2.5 sm:-inset-3 z-30" aria-hidden="true">
-                <svg className="absolute top-0 left-0 w-3.5 h-3.5 sm:w-4 sm:h-4" viewBox="0 0 20 20" fill="none">
-                  <path d="M1 19V1H19" stroke="#c6ff3d" strokeWidth="2" strokeLinecap="square" />
-                </svg>
-                <svg className="absolute top-0 right-0 w-3.5 h-3.5 sm:w-4 sm:h-4" viewBox="0 0 20 20" fill="none">
-                  <path d="M19 19V1H1" stroke="#c6ff3d" strokeWidth="2" strokeLinecap="square" />
-                </svg>
-                <svg className="absolute bottom-0 left-0 w-3.5 h-3.5 sm:w-4 sm:h-4" viewBox="0 0 20 20" fill="none">
-                  <path d="M1 1V19H19" stroke="#c6ff3d" strokeWidth="2" strokeLinecap="square" />
-                </svg>
-                <svg className="absolute bottom-0 right-0 w-3.5 h-3.5 sm:w-4 sm:h-4" viewBox="0 0 20 20" fill="none">
-                  <path d="M19 1V19H1" stroke="#c6ff3d" strokeWidth="2" strokeLinecap="square" />
-                </svg>
-              </div>
-
-              {/* Tap to shuffle stack container */}
-              <div
-                role="button"
-                tabIndex={0}
-                aria-label="Photo print stack. Tap to shuffle prints."
-                onClick={handleShuffle}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    handleShuffle();
-                  }
-                }}
-                className="relative w-full h-full cursor-pointer focus:outline-none"
-              >
-                {order.map((cardIndex, posIndex) => {
-                  const item = STACK_PRINTS[cardIndex];
-                  const isTop = posIndex === 0;
-                  const isSliding = slidingCard === cardIndex;
-
-                  // Target rotation & offset:
-                  // Pos 0 (top): 0°
-                  // Pos 1 (middle): -6°
-                  // Pos 2 (bottom): +5°
-                  const baseRotate = posIndex === 0 ? 0 : posIndex === 1 ? -6 : 5;
-                  const baseScale = posIndex === 0 ? 1 : posIndex === 1 ? 0.96 : 0.92;
-                  const baseX = posIndex === 0 ? 0 : posIndex === 1 ? -6 : 6;
-                  const baseY = posIndex === 0 ? 0 : posIndex === 1 ? 4 : 8;
-                  const zIndex = isTop ? 10 : posIndex === 1 ? 5 : 2;
-
-                  return (
-                    <motion.div
-                      key={item.id}
-                      initial={
-                        shouldAnimateIntro
-                          ? { opacity: 0, y: 35, rotate: 0 }
-                          : false
-                      }
-                      animate={{
-                        opacity: 1,
-                        x: isSliding ? 48 : baseX,
-                        y: isSliding ? -18 : baseY,
-                        rotate: isSliding ? 10 : baseRotate,
-                        scale: baseScale,
-                      }}
-                      transition={{
-                        type: "spring",
-                        stiffness: 280,
-                        damping: 24,
-                        delay: shouldAnimateIntro ? 0.5 + posIndex * 0.1 : 0,
-                      }}
-                      style={{ zIndex }}
-                      className="absolute inset-0 bg-white p-1 sm:p-1.5 shadow-[0_12px_28px_rgba(0,0,0,0.85)] rounded-[1px] overflow-hidden"
-                    >
-                      <div className="relative w-full h-full bg-[#111] overflow-hidden aspect-[4/5]">
-                        <Image
-                          src={item.file}
-                          alt={item.alt}
-                          width={item.width}
-                          height={item.height}
-                          priority={isTop}
-                          placeholder={item.blurDataURL ? "blur" : "empty"}
-                          blurDataURL={item.blurDataURL}
-                          sizes="(max-width: 640px) 60vw, (max-width: 1024px) 290px, 400px"
-                          className="w-full h-full object-cover pointer-events-none"
-                        />
-                      </div>
-                    </motion.div>
-                  );
-                })}
-              </div>
-            </motion.div>
+            </div>
           </div>
 
           {/* Thumb-sized Action Buttons (min 44px tap targets) */}
-          <div className="flex items-center gap-3 pt-5 z-20">
+          <div className="flex items-center justify-center gap-3 pt-5 z-20 w-full">
             <Link
               href="/#featured"
-              className="min-h-[46px] px-5 py-3 bg-[#c6ff3d] text-[#0a0a0a] font-mono font-bold text-xs uppercase tracking-wider hover:bg-[#b5f524] transition-colors flex items-center justify-center shrink-0"
+              className="min-h-[46px] px-6 py-3 bg-[#c6ff3d] text-[#0a0a0a] font-mono font-bold text-xs uppercase tracking-wider hover:bg-[#b5f524] transition-colors flex items-center justify-center shrink-0 shadow-lg"
               data-cursor="hover"
             >
               Selected Work
             </Link>
             <Link
               href="/gallery"
-              className="min-h-[46px] px-5 py-3 border border-white/20 text-[#f2f2f2] font-mono font-semibold text-xs uppercase tracking-wider hover:border-[#c6ff3d] hover:text-[#c6ff3d] transition-colors flex items-center justify-center shrink-0"
+              className="min-h-[46px] px-6 py-3 border border-white/20 text-[#f2f2f2] font-mono font-semibold text-xs uppercase tracking-wider hover:border-[#c6ff3d] hover:text-[#c6ff3d] transition-colors flex items-center justify-center shrink-0 bg-black/40 backdrop-blur-sm"
               data-cursor="hover"
             >
               Archive
