@@ -99,7 +99,7 @@ export default function AboutPage() {
         {/* Action Link */}
         <div className="pt-6 border-t border-white/10 flex items-center justify-between">
           <span className="font-mono text-xs uppercase text-neutral-500">
-            Available for assignments & commissions
+            Inquiries
           </span>
           <Link
             href="/contact"

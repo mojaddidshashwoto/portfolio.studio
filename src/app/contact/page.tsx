@@ -2,8 +2,8 @@ import Link from "next/link";
 import ContactSection from "@/components/ContactSection";
 
 export const metadata = {
-  title: "Inquiries & Commissions",
-  description: "Book fine art portrait sittings, editorial assignments, or archival prints with Mojaddid Shashwoto.",
+  title: "Contact",
+  description: "Contact Mojaddid Shashwoto.",
 };
 
 export default function ContactPage() {
@@ -17,7 +17,7 @@ export default function ContactPage() {
           ← Return To Index
         </Link>
         <span className="font-mono text-[11px] tracking-widest text-[#c6ff3d] uppercase">
-          {"//"} DISPATCH TERMINAL
+          {"//"} CONTACT
         </span>
       </div>
 

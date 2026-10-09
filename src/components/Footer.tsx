@@ -64,13 +64,29 @@ export default function Footer() {
           <div className="md:col-span-3 flex flex-col justify-between space-y-6">
             <div className="space-y-3 font-mono text-xs">
               <span className="text-[#c6ff3d] uppercase tracking-widest block">
-                {"//"} EXTERNAL DISPATCHES
+                {"//"} SOCIAL
               </span>
-              <div className="flex flex-col space-y-1 text-neutral-400 uppercase">
-                <span className="hover:text-white cursor-pointer" data-cursor="hover">Instagram</span>
-                <span className="hover:text-white cursor-pointer" data-cursor="hover">Behance</span>
-                <span className="hover:text-white cursor-pointer" data-cursor="hover">Unsplash</span>
-                <span className="hover:text-white cursor-pointer" data-cursor="hover">X / Twitter</span>
+              <div className="flex flex-col space-y-2 text-neutral-400 uppercase">
+                <a
+                  href="https://www.instagram.com/mojaddid_shashwoto/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-[#c6ff3d] transition-colors inline-flex items-center gap-1.5"
+                  data-cursor="hover"
+                >
+                  <span>Instagram</span>
+                  <span className="text-[10px] text-neutral-500">↗</span>
+                </a>
+                <a
+                  href="https://www.facebook.com/Mojaddid.Shashwotoo/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-[#c6ff3d] transition-colors inline-flex items-center gap-1.5"
+                  data-cursor="hover"
+                >
+                  <span>Facebook</span>
+                  <span className="text-[10px] text-neutral-500">↗</span>
+                </a>
               </div>
             </div>
 

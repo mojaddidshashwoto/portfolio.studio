@@ -72,14 +72,14 @@ export default function Navbar() {
             })}
           </nav>
 
-          {/* Book 2026 Button */}
+          {/* Contact Button */}
           <div className="hidden md:flex items-center">
             <Link
               href="/contact"
               className="px-4 py-1.5 border border-[#c6ff3d] text-[#c6ff3d] bg-[#0a0a0a]/60 backdrop-blur-sm hover:bg-[#c6ff3d] hover:text-[#0a0a0a] transition-colors uppercase tracking-widest text-xs font-mono font-semibold"
               data-cursor="hover"
             >
-              Book 2026
+              Contact
             </Link>
           </div>
 

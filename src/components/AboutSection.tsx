@@ -77,10 +77,10 @@ export default function AboutSection() {
               </div>
             </div>
 
-            {/* Inquire link */}
+            {/* Contact link */}
             <div className="pt-6 border-t border-white/10 flex items-center justify-between">
               <span className="font-mono text-xs uppercase tracking-wider text-neutral-500">
-                Available for assignments & commissions
+                Inquiries
               </span>
               <Link
                 href="/contact"
