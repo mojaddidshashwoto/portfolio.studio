@@ -1,0 +1,27 @@
+import Link from "next/link";
+import ContactSection from "@/components/ContactSection";
+
+export const metadata = {
+  title: "Inquiries & Commissions",
+  description: "Book fine art portrait sittings, editorial assignments, or archival prints with Mojaddid Shashwoto.",
+};
+
+export default function ContactPage() {
+  return (
+    <div className="w-full min-h-screen pt-28 bg-[#0a0a0a]">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 pt-4 pb-2 border-b border-white/10 flex items-center justify-between">
+        <Link
+          href="/"
+          className="font-mono text-xs text-neutral-400 hover:text-[#c6ff3d] uppercase tracking-wider transition-colors"
+        >
+          ← Return To Index
+        </Link>
+        <span className="font-mono text-[11px] tracking-widest text-[#c6ff3d] uppercase">
+          {"//"} DISPATCH TERMINAL
+        </span>
+      </div>
+
+      <ContactSection />
+    </div>
+  );
+}

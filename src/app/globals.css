@@ -1,0 +1,127 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg: #0a0a0a;
+    --text: #f2f2f2;
+    --accent: #c6ff3d;
+    --grid-line: rgba(255, 255, 255, 0.08);
+    --grid-line-strong: rgba(255, 255, 255, 0.16);
+  }
+
+  html {
+    scroll-behavior: auto;
+    background-color: var(--bg);
+    color: var(--text);
+  }
+
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    position: relative;
+    font-family: var(--font-body), sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background-color: #c6ff3d;
+    color: #0a0a0a;
+  }
+}
+
+/* Custom Minimalist Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #262626;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #c6ff3d;
+}
+
+/* Editorial 1px Grid Utilities */
+.border-grid {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.border-grid-strong {
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+/* Headings font styling */
+.font-display {
+  font-family: var(--font-display), var(--font-cinematic), sans-serif;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+}
+
+.font-mono-meta {
+  font-family: var(--font-mono), monospace;
+  letter-spacing: 0.08em;
+}
+
+/* Framed Print Clean Outline */
+.framed-print {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: #0a0a0a;
+  transition: border-color 0.3s ease;
+}
+
+.framed-print:hover {
+  border-color: rgba(198, 255, 61, 0.6);
+}
+
+/* Hide default cursor on fine pointers */
+@media (hover: hover) and (pointer: fine) {
+  body:not(.use-default-cursor) {
+    cursor: none;
+  }
+  body:not(.use-default-cursor) a,
+  body:not(.use-default-cursor) button,
+  body:not(.use-default-cursor) [role="button"],
+  body:not(.use-default-cursor) input,
+  body:not(.use-default-cursor) textarea,
+  body:not(.use-default-cursor) select {
+    cursor: none;
+  }
+}
+
+/* Prefers Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  body {
+    cursor: auto !important;
+  }
+}
