@@ -341,9 +341,10 @@ export default function Hero() {
                           width={item.width}
                           height={item.height}
                           priority={isTop}
+                          loading={isTop ? undefined : "lazy"}
                           placeholder={item.blurDataURL ? "blur" : "empty"}
                           blurDataURL={item.blurDataURL}
-                          sizes="(max-width: 640px) 78vw, (max-width: 1024px) 340px, 400px"
+                          sizes="(max-width: 640px) 340px, (max-width: 1024px) 360px, 400px"
                           className="w-full h-full object-cover pointer-events-none"
                         />
                       </div>

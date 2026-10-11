@@ -11,17 +11,27 @@ export default function AboutSection() {
     {
       num: "01",
       title: "Boats & Coastlines",
-      desc: "Documenting wooden boats, coastal shores, and open water in natural sunlight.",
+      desc: "Wooden boats, tidal shores, and open water.",
     },
     {
       num: "02",
       title: "Rivers & Light",
-      desc: "Observing calm river surfaces, changing twilight, and reflections across the water.",
+      desc: "River surfaces, reflections, and twilight skies.",
     },
     {
       num: "03",
       title: "Railways & Everyday Life",
-      desc: "Photographing passengers, tracks, morning mist, and daily routines as they happen.",
+      desc: "Railway tracks, commuter trains, and daily routines.",
+    },
+    {
+      num: "04",
+      title: "Portraits",
+      desc: "People observed in available natural light.",
+    },
+    {
+      num: "05",
+      title: "Nature",
+      desc: "Trees, foliage, and quiet outdoor scenes.",
     },
   ];
 
@@ -45,7 +55,7 @@ export default function AboutSection() {
           <div className="lg:col-span-7 flex flex-col justify-between space-y-10">
             <div>
               <h2 className="font-display text-4xl sm:text-6xl lg:text-7xl font-extrabold uppercase tracking-tight text-[#f2f2f2] leading-[0.9]">
-                Boats, Rivers, Railways, and Everyday Life.
+                Boats, Rivers, Railways, Portraits, and Nature.
               </h2>
 
               <div className="mt-8 space-y-5 text-base text-neutral-300 font-light leading-relaxed max-w-xl">
@@ -60,10 +70,10 @@ export default function AboutSection() {
                 </p>
               </div>
 
-              {/* Core Photographic Principles (No numbers) */}
-              <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-6 pt-8 border-t border-white/10">
+              {/* Core Photographic Themes */}
+              <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pt-8 border-t border-white/10">
                 {principles.map((p, idx) => (
-                  <div key={idx} className="space-y-2 border-l border-white/10 pl-4 sm:pl-3">
+                  <div key={idx} className="space-y-1.5 border-l border-white/10 pl-4 sm:pl-3">
                     <h3 className="font-sans text-xs font-semibold uppercase tracking-wider text-[#f2f2f2]">
                       {p.title}
                     </h3>
@@ -103,7 +113,8 @@ export default function AboutSection() {
                   alt={aboutPhoto.alt}
                   width={aboutPhoto.width || 1800}
                   height={aboutPhoto.height || 2400}
-                  sizes="(max-width: 1024px) 100vw, 420px"
+                  loading="lazy"
+                  sizes="(max-width: 1024px) 90vw, 420px"
                   placeholder={aboutPhoto.blurDataURL ? "blur" : "empty"}
                   blurDataURL={aboutPhoto.blurDataURL}
                   className="w-full h-full object-contain"

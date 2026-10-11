@@ -133,7 +133,7 @@ export default function HorizontalGallery({
                   alt=""
                   width={photo.width || 1800}
                   height={photo.height || 1200}
-                  priority={idx < 2}
+                  loading="lazy"
                   placeholder={photo.blurDataURL ? "blur" : "empty"}
                   blurDataURL={photo.blurDataURL}
                   sizes="(max-width: 768px) 85vw, 480px"
@@ -172,9 +172,10 @@ export default function HorizontalGallery({
                   alt={photo.alt}
                   width={photo.width || 1800}
                   height={photo.height || 1200}
+                  loading="lazy"
                   placeholder={photo.blurDataURL ? "blur" : "empty"}
                   blurDataURL={photo.blurDataURL}
-                  sizes="680px"
+                  sizes="(max-width: 1440px) 680px, 800px"
                   className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-[1.015]"
                 />
               </div>

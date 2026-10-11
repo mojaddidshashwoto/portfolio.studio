@@ -15,8 +15,8 @@ export default function ContactSection({
 
   const [honeypot, setHoneypot] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [submitting, setSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
+  const [serverStatus, setServerStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [serverMessage, setServerMessage] = useState<string>("");
 
   const HeadingTag = headingLevel;
 
@@ -40,39 +40,53 @@ export default function ContactSection({
     return errs;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    // Bot detection via honeypot field
-    if (honeypot.trim()) {
-      setSubmitted(true);
-      return;
-    }
 
     const errs = validate();
     setErrors(errs);
 
-    if (Object.keys(errs).length === 0) {
-      setSubmitting(true);
-      const cleanName = sanitize(formData.name, 100);
-      const cleanEmail = sanitize(formData.email, 150);
-      const cleanMsg = sanitize(formData.message, 3000);
+    if (Object.keys(errs).length > 0) return;
 
-      const subject = encodeURIComponent(`Portfolio Inquiry from ${cleanName}`);
-      const body = encodeURIComponent(
-        `Name: ${cleanName}\nEmail: ${cleanEmail}\n\nMessage:\n${cleanMsg}`
+    setServerStatus("submitting");
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          company_hp: honeypot,
+        }),
+      });
+
+      const data = await res.json().catch(() => ({}));
+
+      if (res.ok && data.success) {
+        setServerStatus("success");
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        setServerStatus("error");
+        setServerMessage(
+          data.error ||
+            "Unable to deliver message through the contact server. Please reach out directly by email."
+        );
+      }
+    } catch {
+      setServerStatus("error");
+      setServerMessage(
+        "Network connection issue. Please use the direct email link below."
       );
-      const mailtoUrl = `mailto:sasotomujaddid@gmail.com?subject=${subject}&body=${body}`;
-
-      // Open user's default email client addressed to sasotomujaddid@gmail.com
-      window.location.href = mailtoUrl;
-
-      setTimeout(() => {
-        setSubmitting(false);
-        setSubmitted(true);
-      }, 500);
     }
   };
+
+  const fallbackMailto = `mailto:sasotomujaddid@gmail.com?subject=${encodeURIComponent(
+    `Portfolio Inquiry from ${formData.name || "Visitor"}`
+  )}&body=${encodeURIComponent(
+    `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
+  )}`;
 
   return (
     <section id="contact" className="relative w-full py-28 px-6 md:px-12 bg-[#0a0a0a] border-b border-white/10">
@@ -148,46 +162,66 @@ export default function ContactSection({
             </div>
           </div>
 
-          {/* Right: Simplified Form */}
+          {/* Right: Working Form with Server Action / API */}
           <div className="lg:col-span-7">
             <div className="border border-white/10 p-8 sm:p-12 bg-[#0a0a0a]">
-              {submitted ? (
+              {serverStatus === "success" ? (
                 <div className="py-12 space-y-4">
                   <div className="font-mono text-xs text-[#c6ff3d] uppercase tracking-widest">
-                    {"//"} MESSAGE PREPARED
+                    {"//"} MESSAGE SENT
                   </div>
                   <h3 className="font-display text-3xl font-bold uppercase text-[#f2f2f2]">
-                    Ready to Send.
+                    Thank You.
                   </h3>
-                  <p className="text-sm text-neutral-400 font-light leading-relaxed max-w-md">
-                    Your email client should have opened addressed to{" "}
-                    <strong className="text-white font-medium">sasotomujaddid@gmail.com</strong>. If it didn’t open automatically, you can send an email directly using the link below.
+                  <p className="text-sm text-neutral-300 font-light leading-relaxed max-w-md">
+                    Your message has been sent successfully. I will get back to you shortly.
                   </p>
                   <div className="pt-4 flex flex-wrap gap-4">
-                    <a
-                      href={`mailto:sasotomujaddid@gmail.com?subject=${encodeURIComponent(
-                        `Portfolio Inquiry from ${formData.name}`
-                      )}&body=${encodeURIComponent(
-                        `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
-                      )}`}
+                    <button
+                      onClick={() => {
+                        setServerStatus("idle");
+                        setServerMessage("");
+                      }}
                       className="px-6 py-3 border border-[#c6ff3d] bg-[#c6ff3d] text-[#0a0a0a] font-mono font-bold text-xs uppercase tracking-widest hover:bg-transparent hover:text-[#c6ff3d] transition-colors"
                       data-cursor="hover"
                     >
-                      Open Email App Again ↗
+                      Send Another Message
+                    </button>
+                    <a
+                      href="mailto:sasotomujaddid@gmail.com"
+                      className="px-6 py-3 border border-white/20 font-mono text-xs uppercase tracking-widest hover:border-white text-neutral-300 transition-colors inline-flex items-center"
+                      data-cursor="hover"
+                    >
+                      Direct Email: sasotomujaddid@gmail.com
+                    </a>
+                  </div>
+                </div>
+              ) : serverStatus === "error" ? (
+                <div className="py-8 space-y-4">
+                  <div className="font-mono text-xs text-red-400 uppercase tracking-widest">
+                    {"//"} DELIVERY NOTICE
+                  </div>
+                  <h3 className="font-display text-2xl font-bold uppercase text-[#f2f2f2]">
+                    Direct Email Fallback
+                  </h3>
+                  <p className="text-sm text-neutral-300 font-light leading-relaxed max-w-md">
+                    {serverMessage}
+                  </p>
+                  <div className="pt-4 flex flex-wrap gap-4">
+                    <a
+                      href={fallbackMailto}
+                      className="px-6 py-3 border border-[#c6ff3d] bg-[#c6ff3d] text-[#0a0a0a] font-mono font-bold text-xs uppercase tracking-widest hover:bg-transparent hover:text-[#c6ff3d] transition-colors inline-flex items-center gap-2"
+                      data-cursor="hover"
+                    >
+                      <span>Open in Email App</span>
+                      <span>↗</span>
                     </a>
                     <button
-                      onClick={() => {
-                        setSubmitted(false);
-                        setFormData({
-                          name: "",
-                          email: "",
-                          message: "",
-                        });
-                      }}
+                      onClick={() => setServerStatus("idle")}
                       className="px-6 py-3 border border-white/20 font-mono text-xs uppercase tracking-widest hover:border-white text-neutral-300 transition-colors"
                       data-cursor="hover"
                     >
-                      Write Another Message
+                      Back to Form
                     </button>
                   </div>
                 </div>
@@ -278,11 +312,11 @@ export default function ContactSection({
 
                   <button
                     type="submit"
-                    disabled={submitting}
+                    disabled={serverStatus === "submitting"}
                     data-cursor="hover"
                     className="w-full py-4 border border-[#c6ff3d] bg-[#c6ff3d] text-[#0a0a0a] font-mono font-bold text-xs uppercase tracking-widest hover:bg-transparent hover:text-[#c6ff3d] transition-colors duration-300 disabled:opacity-50"
                   >
-                    {submitting ? "Opening Email..." : "Send Message →"}
+                    {serverStatus === "submitting" ? "Sending Message..." : "Send Message →"}
                   </button>
                 </form>
               )}

@@ -53,17 +53,65 @@ export default function Lightbox({
     }
   }, [currentIndex, photos, onSelectPhoto]);
 
-  // Keyboard Navigation: Left/Right to Navigate, Esc to Close
+  const containerRef = useRef<HTMLDivElement>(null);
+  const closeBtnRef = useRef<HTMLButtonElement>(null);
+  const previousActiveElement = useRef<HTMLElement | null>(null);
+
+  // Focus restoration: store clicked element when opened, restore on close
+  useEffect(() => {
+    if (photo) {
+      previousActiveElement.current = document.activeElement as HTMLElement;
+      // Focus close button on open
+      setTimeout(() => {
+        closeBtnRef.current?.focus();
+      }, 50);
+    } else {
+      if (previousActiveElement.current) {
+        previousActiveElement.current.focus();
+        previousActiveElement.current = null;
+      }
+    }
+  }, [photo]);
+
+  // Keyboard Navigation: Left/Right to Navigate, Esc to Close, Tab Focus Trap
   useEffect(() => {
     if (!photo) return;
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
+        e.preventDefault();
         onClose();
       } else if (e.key === "ArrowLeft") {
+        e.preventDefault();
         handlePrev();
       } else if (e.key === "ArrowRight") {
+        e.preventDefault();
         handleNext();
+      } else if (e.key === "Tab" && containerRef.current) {
+        // Focus trap
+        const focusableElements = containerRef.current.querySelectorAll<HTMLElement>(
+          'button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        );
+        const focusable = Array.from(focusableElements).filter(
+          (el) => el.offsetParent !== null
+        );
+
+        if (focusable.length > 0) {
+          const first = focusable[0];
+          const last = focusable[focusable.length - 1];
+
+          if (e.shiftKey) {
+            if (document.activeElement === first) {
+              e.preventDefault();
+              last.focus();
+            }
+          } else {
+            if (document.activeElement === last) {
+              e.preventDefault();
+              first.focus();
+            }
+          }
+        }
       }
     };
 
@@ -140,6 +188,10 @@ export default function Lightbox({
   return (
     <AnimatePresence>
       <motion.div
+        ref={containerRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Photo Lightbox"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -151,6 +203,7 @@ export default function Lightbox({
       >
         {/* Top Control Bar with Close Button (min 44px tap target) */}
         <button
+          ref={closeBtnRef}
           onClick={onClose}
           data-cursor="hover"
           aria-label="Close Lightbox"
@@ -225,7 +278,7 @@ export default function Lightbox({
               priority
               placeholder={photo.blurDataURL ? "blur" : "empty"}
               blurDataURL={photo.blurDataURL}
-              sizes="92vw"
+              sizes="(max-width: 1024px) 92vw, (max-width: 1920px) 1440px, 1920px"
               className="object-contain max-h-[72vh] sm:max-h-[78vh] w-auto h-auto pointer-events-none"
             />
           </motion.div>

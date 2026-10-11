@@ -2,14 +2,14 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
-import { photos, categories, Category, Photo } from "@/lib/photos";
+import { photos, SUBJECTS, Photo } from "@/lib/photos";
 import FramedPhoto from "@/components/FramedPhoto";
 import Lightbox from "@/components/Lightbox";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function GalleryPage() {
   const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
-  const [activeCategory, setActiveCategory] = useState<Category>("All");
+  const [activeCategory, setActiveCategory] = useState<string>("All");
 
   const filteredPhotos = useMemo(() => {
     if (activeCategory === "All") return photos;
@@ -41,25 +41,25 @@ export default function GalleryPage() {
           </h1>
         </div>
 
-        {/* Category Filters: Horizontal Scrollable Chip Row */}
+        {/* Category & Subject Filter Chips */}
         <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1 -mx-4 px-4 sm:mx-0 sm:px-0 font-mono text-xs mb-8 pb-4 border-b border-white/10">
-          {categories.map((cat) => {
-            const active = activeCategory === cat;
-            return (
-              <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                data-cursor="hover"
-                className={`min-h-[44px] px-4 py-2 border uppercase tracking-wider shrink-0 transition-colors flex items-center justify-center ${
-                  active
-                    ? "border-[#c6ff3d] text-[#c6ff3d] bg-[#c6ff3d]/10 font-bold"
-                    : "border-white/10 text-neutral-400 hover:text-white"
-                }`}
-              >
-                {cat}
-              </button>
-            );
-          })}
+          <Link
+            href="/gallery"
+            data-cursor="hover"
+            className="min-h-[44px] px-4 py-2 border uppercase tracking-wider shrink-0 transition-colors flex items-center justify-center border-[#c6ff3d] text-[#c6ff3d] bg-[#c6ff3d]/10 font-bold focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#c6ff3d]"
+          >
+            All
+          </Link>
+          {Object.values(SUBJECTS).map((sub) => (
+            <Link
+              key={sub.slug}
+              href={`/gallery/${sub.slug}`}
+              data-cursor="hover"
+              className="min-h-[44px] px-4 py-2 border uppercase tracking-wider shrink-0 transition-colors flex items-center justify-center border-white/10 text-neutral-400 hover:text-white hover:border-white/30 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#c6ff3d]"
+            >
+              {sub.title}
+            </Link>
+          ))}
         </div>
 
         {/* 2-Column Masonry with tight 6px gaps */}

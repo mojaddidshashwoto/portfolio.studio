@@ -7,6 +7,11 @@ const keyLocation = `https://${host}/${key}.txt`;
 const urlList = [
   `https://${host}/`,
   `https://${host}/gallery`,
+  `https://${host}/gallery/boats-and-coastlines`,
+  `https://${host}/gallery/rivers-and-light`,
+  `https://${host}/gallery/railways-and-everyday-life`,
+  `https://${host}/gallery/portraits`,
+  `https://${host}/gallery/nature`,
   `https://${host}/about`,
   `https://${host}/contact`,
 ];

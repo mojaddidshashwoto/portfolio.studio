@@ -5,7 +5,7 @@ const path = require('path');
 const os = require('os');
 
 const chromePath = 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
-const artifactDir = 'C:\\Users\\Mojaddid Shashwoto\\.gemini\\antigravity-ide\\brain\\52d2b796-01d3-4275-83d2-8e0fbad42ed9';
+const artifactDir = 'C:\\Users\\Mojaddid Shashwoto\\.gemini\\antigravity-ide\\brain\\1743bcfa-ec93-428d-9fe9-c458697f591f';
 
 async function checkUrl(url) {
   return new Promise((resolve) => {

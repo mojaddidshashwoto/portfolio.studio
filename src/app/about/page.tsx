@@ -59,15 +59,23 @@ export default function AboutPage() {
   const principles = [
     {
       title: "Boats & Coastlines",
-      desc: "Documenting wooden boats, coastal shores, and open water in natural sunlight.",
+      desc: "Wooden boats, tidal shores, and open water.",
     },
     {
       title: "Rivers & Light",
-      desc: "Observing calm river surfaces, changing twilight, and reflections across the water.",
+      desc: "River surfaces, reflections, and twilight skies.",
     },
     {
       title: "Railways & Everyday Life",
-      desc: "Photographing passengers, tracks, morning mist, and daily routines as they happen.",
+      desc: "Railway tracks, commuter trains, and daily routines.",
+    },
+    {
+      title: "Portraits",
+      desc: "People observed in available natural light.",
+    },
+    {
+      title: "Nature",
+      desc: "Trees, foliage, and quiet outdoor scenes.",
     },
   ];
 
@@ -132,24 +140,24 @@ export default function AboutPage() {
                 alt={aboutPhoto.alt}
                 width={aboutPhoto.width || 1800}
                 height={aboutPhoto.height || 2400}
-                priority
-                sizes="(max-width: 1024px) 100vw, 600px"
+                loading="lazy"
+                sizes="(max-width: 1024px) 90vw, 600px"
                 className="w-full h-full object-contain"
               />
             </div>
           </div>
 
-          {/* Principles */}
+          {/* Photographic Themes */}
           <div className="mb-20">
             <h2 className="font-display text-2xl font-bold uppercase tracking-tight text-[#f2f2f2] mb-8 pb-4 border-b border-white/10">
-              Photographic Approach
+              Photographic Themes
             </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {principles.map((p, idx) => (
                 <div
                   key={idx}
-                  className="border border-white/10 p-6 space-y-3 bg-[#0a0a0a]"
+                  className="border border-white/10 p-6 space-y-2 bg-[#0a0a0a]"
                 >
                   <h3 className="font-sans font-bold text-sm uppercase text-[#f2f2f2]">
                     {p.title}

@@ -42,9 +42,10 @@ export default function FramedPhoto({
           width={photo.width}
           height={photo.height}
           priority={priority}
+          loading={priority ? undefined : "lazy"}
           placeholder={photo.blurDataURL ? "blur" : "empty"}
           blurDataURL={photo.blurDataURL}
-          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 33vw"
+          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 420px"
           className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-[1.015]"
         />
 
