@@ -78,6 +78,10 @@ export default function Hero() {
   const [slidingCard, setSlidingCard] = useState<number | null>(null);
 
   const handleShuffle = useCallback(() => {
+    if (reducedMotion) {
+      setOrder(([top, ...rest]) => [...rest, top]);
+      return;
+    }
     if (slidingCard !== null) return;
     const currentTop = order[0];
     setSlidingCard(currentTop);
@@ -86,7 +90,7 @@ export default function Hero() {
       setOrder(([top, ...rest]) => [...rest, top]);
       setSlidingCard(null);
     }, 190);
-  }, [order, slidingCard]);
+  }, [order, slidingCard, reducedMotion]);
 
   // Desktop focus ring following cursor within the stack area
   const [mousePos, setMousePos] = useState<{ x: number; y: number } | null>(null);
@@ -320,17 +324,21 @@ export default function Hero() {
                       }
                       animate={{
                         opacity: 1,
-                        x: isSliding ? 45 : baseX,
-                        y: isSliding ? -18 : baseY,
-                        rotate: isSliding ? 10 : baseRotate,
-                        scale: baseScale,
+                        x: reducedMotion ? 0 : (isSliding ? 45 : baseX),
+                        y: reducedMotion ? 0 : (isSliding ? -18 : baseY),
+                        rotate: reducedMotion ? 0 : (isSliding ? 10 : baseRotate),
+                        scale: reducedMotion ? 1 : baseScale,
                       }}
-                      transition={{
-                        type: "spring",
-                        stiffness: 280,
-                        damping: 24,
-                        delay: shouldAnimateIntro ? 0.45 + posIndex * 0.09 : 0,
-                      }}
+                      transition={
+                        reducedMotion
+                          ? { duration: 0 }
+                          : {
+                              type: "spring",
+                              stiffness: 280,
+                              damping: 24,
+                              delay: shouldAnimateIntro ? 0.45 + posIndex * 0.09 : 0,
+                            }
+                      }
                       style={{ zIndex }}
                       className="absolute inset-0 bg-white p-1 sm:p-1.5 shadow-[0_14px_32px_rgba(0,0,0,0.85)] rounded-[2px] overflow-hidden"
                     >
