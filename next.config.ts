@@ -70,6 +70,11 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        source: "/gallery/railways-and-everyday-life",
+        destination: "/gallery/everyday-life",
+        permanent: true,
+      },
+      {
         source: "/:path*",
         has: [
           {

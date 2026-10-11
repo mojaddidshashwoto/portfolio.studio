@@ -20,8 +20,8 @@ export default function AboutSection() {
     },
     {
       num: "03",
-      title: "Railways & Everyday Life",
-      desc: "Railway tracks, commuter trains, and daily routines.",
+      title: "Everyday Life",
+      desc: "Locomotives, tracks, markets, and daily work.",
     },
     {
       num: "04",
@@ -31,7 +31,12 @@ export default function AboutSection() {
     {
       num: "05",
       title: "Nature",
-      desc: "Trees, foliage, and quiet outdoor scenes.",
+      desc: "Trees, foliage, flowers, and open skies.",
+    },
+    {
+      num: "06",
+      title: "Architecture",
+      desc: "Building facades, structural brickwork, and repetitive windows.",
     },
   ];
 
@@ -55,18 +60,18 @@ export default function AboutSection() {
           <div className="lg:col-span-7 flex flex-col justify-between space-y-10">
             <div>
               <h2 className="font-display text-4xl sm:text-6xl lg:text-7xl font-extrabold uppercase tracking-tight text-[#f2f2f2] leading-[0.9]">
-                Boats, Rivers, Railways, Portraits, and Nature.
+                Boats, Rivers, Everyday Life, Portraits, Nature, and Architecture.
               </h2>
 
               <div className="mt-8 space-y-5 text-base text-neutral-300 font-light leading-relaxed max-w-xl">
                 <p>
                   I am <strong className="text-white font-medium">Mojaddid Shashwoto</strong>, a
-                  photographer in Dhaka.
+                  photographer.
                 </p>
                 <p>
-                  My work documents boats and coastlines, rivers and light, railways and everyday
-                  life, portraits, and nature. I focus on observing scenes as they are, using
-                  natural light and everyday surroundings.
+                  My work documents boats and coastlines, rivers and light, everyday
+                  life, portraits, nature, and architecture. I focus on observing scenes as they are, using
+                  available light and everyday surroundings without staging.
                 </p>
               </div>
 

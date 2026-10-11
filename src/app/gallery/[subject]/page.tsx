@@ -31,13 +31,13 @@ export async function generateMetadata({
     title,
     description,
     alternates: {
-      canonical: `https://mojaddid.studio/gallery/${subject.slug}`,
+      canonical: `https://mojaddidshashwoto.studio/gallery/${subject.slug}`,
     },
     openGraph: {
       title,
       description,
-      url: `https://mojaddid.studio/gallery/${subject.slug}`,
-      siteName: "Mojaddid Shashwoto Portfolio",
+      url: `https://mojaddidshashwoto.studio/gallery/${subject.slug}`,
+      siteName: "Mojaddid Shashwoto",
       type: "website",
     },
     twitter: {
@@ -67,19 +67,19 @@ export default async function SubjectPage({ params }: SubjectPageProps) {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": "https://mojaddid.studio",
+        "item": "https://mojaddidshashwoto.studio",
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Archive",
-        "item": "https://mojaddid.studio/gallery",
+        "item": "https://mojaddidshashwoto.studio/gallery",
       },
       {
         "@type": "ListItem",
         "position": 3,
         "name": subject.title,
-        "item": `https://mojaddid.studio/gallery/${subject.slug}`,
+        "item": `https://mojaddidshashwoto.studio/gallery/${subject.slug}`,
       },
     ],
   };

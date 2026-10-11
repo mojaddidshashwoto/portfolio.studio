@@ -6,14 +6,14 @@ import { getAboutPhoto } from "@/lib/photos";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "About Mojaddid Shashwoto, a photographer in Dhaka documenting boats and coastlines, rivers and light, railways and everyday life, portraits, and nature.",
+    "Photographic archive by Mojaddid Shashwoto documenting boats and coastlines, rivers and light, everyday life, portraits, nature, and architecture.",
   alternates: {
     canonical: "/about",
   },
   openGraph: {
     title: "About | Mojaddid Shashwoto",
     description:
-      "About Mojaddid Shashwoto, a photographer in Dhaka documenting boats and coastlines, rivers and light, railways and everyday life, portraits, and nature.",
+      "Photographic archive by Mojaddid Shashwoto documenting boats and coastlines, rivers and light, everyday life, portraits, nature, and architecture.",
     url: "https://mojaddidshashwoto.studio/about",
     siteName: "Mojaddid Shashwoto",
     images: [
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "About | Mojaddid Shashwoto",
     description:
-      "About Mojaddid Shashwoto, a photographer in Dhaka documenting boats and coastlines, rivers and light, railways and everyday life, portraits, and nature.",
+      "Photographic archive by Mojaddid Shashwoto documenting boats and coastlines, rivers and light, everyday life, portraits, nature, and architecture.",
     images: ["/og-image.jpg"],
   },
 };
@@ -66,8 +66,8 @@ export default function AboutPage() {
       desc: "River surfaces, reflections, and twilight skies.",
     },
     {
-      title: "Railways & Everyday Life",
-      desc: "Railway tracks, commuter trains, and daily routines.",
+      title: "Everyday Life",
+      desc: "Locomotives, tracks, markets, and daily work.",
     },
     {
       title: "Portraits",
@@ -75,7 +75,11 @@ export default function AboutPage() {
     },
     {
       title: "Nature",
-      desc: "Trees, foliage, and quiet outdoor scenes.",
+      desc: "Trees, foliage, flowers, and open skies.",
+    },
+    {
+      title: "Architecture",
+      desc: "Building facades, structural brickwork, and repetitive windows.",
     },
   ];
 
@@ -102,7 +106,7 @@ export default function AboutPage() {
 
           {/* Plain-text identification line near top */}
           <p className="font-mono text-xs text-[#c6ff3d] tracking-wide mb-6">
-            Mojaddid Shashwoto is a photographer in Dhaka.
+            Mojaddid Shashwoto is a photographer.
           </p>
 
           {/* Hero Header */}
@@ -118,13 +122,13 @@ export default function AboutPage() {
             {/* Factual Bio in Plain Wording */}
             <div className="mt-8 space-y-5 text-base sm:text-lg text-neutral-300 font-light leading-relaxed max-w-3xl">
               <p>
-                I am Mojaddid Shashwoto, a photographer in Dhaka. My work documents boats and
-                coastlines, rivers and light, railways and everyday life, portraits, and nature.
+                I am Mojaddid Shashwoto, a photographer. My work documents boats and
+                coastlines, rivers and light, everyday life, portraits, nature, and architecture.
               </p>
               <p>
-                I observe scenes as they unfold, working with natural ambient light and everyday
-                surroundings. From riverbanks and fishing boats to train tracks and quiet portraits,
-                this archive brings together moments photographed without staging.
+                I observe scenes as they unfold, working with available light and everyday
+                surroundings. From riverbanks and fishing boats to train tracks, quiet portraits,
+                and brick facades, this archive brings together moments photographed without staging.
               </p>
             </div>
           </div>
