@@ -3,14 +3,14 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Photography Archive",
   description:
-    "Explore the photography archive by Mojaddid Shashwoto, documenting architecture, street perspectives, and portraits in Dhaka.",
+    "Explore the photography archive by Mojaddid Shashwoto, documenting boats and coastlines, rivers and light, railways and everyday life, portraits, and nature.",
   alternates: {
     canonical: "/gallery",
   },
   openGraph: {
     title: "Photography Archive | Mojaddid Shashwoto",
     description:
-      "Explore the photography archive by Mojaddid Shashwoto, documenting architecture, street perspectives, and portraits in Dhaka.",
+      "Explore the photography archive by Mojaddid Shashwoto, documenting boats and coastlines, rivers and light, railways and everyday life, portraits, and nature.",
     url: "https://mojaddidshashwoto.studio/gallery",
     siteName: "Mojaddid Shashwoto",
     images: [
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Photography Archive | Mojaddid Shashwoto",
     description:
-      "Explore the photography archive by Mojaddid Shashwoto, documenting architecture, street perspectives, and portraits in Dhaka.",
+      "Explore the photography archive by Mojaddid Shashwoto, documenting boats and coastlines, rivers and light, railways and everyday life, portraits, and nature.",
     images: ["/og-image.jpg"],
   },
 };

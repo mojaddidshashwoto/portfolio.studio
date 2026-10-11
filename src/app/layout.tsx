@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     template: "%s | Mojaddid Shashwoto",
   },
   description:
-    "Selected photographs and archive by Mojaddid Shashwoto, documenting architecture, street perspectives, and portraits in Dhaka.",
+    "Photographs by Mojaddid Shashwoto, a photographer in Dhaka. Work documenting boats and coastlines, rivers and light, railways and everyday life, portraits, and nature.",
   alternates: {
     canonical: "/",
   },
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     url: "https://mojaddidshashwoto.studio",
     title: "Mojaddid Shashwoto | Photographer in Dhaka",
     description:
-      "Selected photographs and archive by Mojaddid Shashwoto, documenting architecture, street perspectives, and portraits in Dhaka.",
+      "Photographs by Mojaddid Shashwoto, a photographer in Dhaka. Work documenting boats and coastlines, rivers and light, railways and everyday life, portraits, and nature.",
     siteName: "Mojaddid Shashwoto",
     images: [
       {
@@ -66,7 +66,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Mojaddid Shashwoto | Photographer in Dhaka",
     description:
-      "Selected photographs and archive by Mojaddid Shashwoto, documenting architecture, street perspectives, and portraits in Dhaka.",
+      "Photographs by Mojaddid Shashwoto, a photographer in Dhaka. Work documenting boats and coastlines, rivers and light, railways and everyday life, portraits, and nature.",
     images: ["/og-image.jpg"],
   },
   icons: {

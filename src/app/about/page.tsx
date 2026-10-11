@@ -6,14 +6,14 @@ import { getAboutPhoto } from "@/lib/photos";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Read about Mojaddid Shashwoto, an independent photographer based in Dhaka documenting architectural geometry, street moments, and portraits.",
+    "About Mojaddid Shashwoto, a photographer in Dhaka documenting boats and coastlines, rivers and light, railways and everyday life, portraits, and nature.",
   alternates: {
     canonical: "/about",
   },
   openGraph: {
     title: "About | Mojaddid Shashwoto",
     description:
-      "Read about Mojaddid Shashwoto, an independent photographer based in Dhaka documenting architectural geometry, street moments, and portraits.",
+      "About Mojaddid Shashwoto, a photographer in Dhaka documenting boats and coastlines, rivers and light, railways and everyday life, portraits, and nature.",
     url: "https://mojaddidshashwoto.studio/about",
     siteName: "Mojaddid Shashwoto",
     images: [
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "About | Mojaddid Shashwoto",
     description:
-      "Read about Mojaddid Shashwoto, an independent photographer based in Dhaka documenting architectural geometry, street moments, and portraits.",
+      "About Mojaddid Shashwoto, a photographer in Dhaka documenting boats and coastlines, rivers and light, railways and everyday life, portraits, and nature.",
     images: ["/og-image.jpg"],
   },
 };
@@ -58,16 +58,16 @@ export default function AboutPage() {
 
   const principles = [
     {
-      title: "Negative Space & Shadow",
-      desc: "Treating deep shadows and unlit areas as deliberate elements that focus attention on the subject.",
+      title: "Boats & Coastlines",
+      desc: "Documenting wooden boats, coastal shores, and open water in natural sunlight.",
     },
     {
-      title: "Natural Light & Geometry",
-      desc: "Working with architectural windows, direct sunlight, and available ambient lighting to define real texture.",
+      title: "Rivers & Light",
+      desc: "Observing calm river surfaces, changing twilight, and reflections across the water.",
     },
     {
-      title: "Urban Stillness",
-      desc: "Observing everyday moments, solitary pedestrians, and stillness within dense metropolitan environments.",
+      title: "Railways & Everyday Life",
+      desc: "Photographing passengers, tracks, morning mist, and daily routines as they happen.",
     },
   ];
 
@@ -94,7 +94,7 @@ export default function AboutPage() {
 
           {/* Plain-text identification line near top */}
           <p className="font-mono text-xs text-[#c6ff3d] tracking-wide mb-6">
-            Mojaddid Shashwoto is a photographer based in Dhaka, Bangladesh.
+            Mojaddid Shashwoto is a photographer in Dhaka.
           </p>
 
           {/* Hero Header */}
@@ -107,31 +107,17 @@ export default function AboutPage() {
               Mojaddid Shashwoto
             </h1>
 
-            {/* 150-250 Word Factual Bio in First Person */}
+            {/* Factual Bio in Plain Wording */}
             <div className="mt-8 space-y-5 text-base sm:text-lg text-neutral-300 font-light leading-relaxed max-w-3xl">
               <p>
-                I am Mojaddid Shashwoto, an independent photographer living and working in Dhaka,
-                Bangladesh. My photographic work centers on the intersection of urban architecture,
-                quiet street moments, and deliberate portraits across the metropolitan landscape.
+                I am Mojaddid Shashwoto, a photographer in Dhaka. My work documents boats and
+                coastlines, rivers and light, railways and everyday life, portraits, and nature.
               </p>
               <p>
-                I document Dhaka through geometric compositions, deep shadows, and available
-                ambient illumination. Rather than chasing transient visual trends, I look for stillness
-                within dense and crowded thoroughfares, observing solitary pedestrians, structural lines,
-                and natural contrast created by sunlight and concrete. Every photograph in this archive
-                is made with deliberate attention to negative space, framing, and surface texture,
-                treating each resulting image with the respect of a finished physical print.
+                I observe scenes as they unfold, working with natural ambient light and everyday
+                surroundings. From riverbanks and fishing boats to train tracks and quiet portraits,
+                this archive brings together moments photographed without staging.
               </p>
-              <p>
-                In my portrait work, I prioritize authentic human presence, unforced gestures, and
-                natural window light over artificial studio lighting or synthetic staging. By combining
-                structural architectural geometry with quiet portraiture and street perspectives, I
-                document how people navigate and inhabit the living environment of Dhaka. This
-                portfolio serves as an open visual record of those observed moments.
-              </p>
-
-              {/* TODO: Confirmed photographic background, gear, or training to be added once verified. */}
-              {/* TODO: Confirmed print sales or exhibition history to be added once verified. */}
             </div>
           </div>
 

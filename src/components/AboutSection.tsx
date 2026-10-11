@@ -10,18 +10,18 @@ export default function AboutSection() {
   const principles = [
     {
       num: "01",
-      title: "Negative Space & Shadow",
-      desc: "Treating deep shadows and unlit areas as deliberate elements that focus attention on the subject.",
+      title: "Boats & Coastlines",
+      desc: "Documenting wooden boats, coastal shores, and open water in natural sunlight.",
     },
     {
       num: "02",
-      title: "Natural Light & Geometry",
-      desc: "Working with architectural windows, direct sunlight, and available ambient lighting to define real texture.",
+      title: "Rivers & Light",
+      desc: "Observing calm river surfaces, changing twilight, and reflections across the water.",
     },
     {
       num: "03",
-      title: "Urban Stillness",
-      desc: "Observing everyday moments, solitary pedestrians, and stillness within dense metropolitan environments.",
+      title: "Railways & Everyday Life",
+      desc: "Photographing passengers, tracks, morning mist, and daily routines as they happen.",
     },
   ];
 
@@ -45,18 +45,18 @@ export default function AboutSection() {
           <div className="lg:col-span-7 flex flex-col justify-between space-y-10">
             <div>
               <h2 className="font-display text-4xl sm:text-6xl lg:text-7xl font-extrabold uppercase tracking-tight text-[#f2f2f2] leading-[0.9]">
-                Framing Stillness in the City.
+                Boats, Rivers, Railways, and Everyday Life.
               </h2>
 
               <div className="mt-8 space-y-5 text-base text-neutral-300 font-light leading-relaxed max-w-xl">
                 <p>
-                  I am <strong className="text-white font-medium">Mojaddid Shashwoto</strong>, an
-                  independent photographer based in Dhaka.
+                  I am <strong className="text-white font-medium">Mojaddid Shashwoto</strong>, a
+                  photographer in Dhaka.
                 </p>
                 <p>
-                  My work focuses on architectural perspectives, street scenes, and quiet portraits.
-                  I look for geometric balance, natural contrast, and authentic human moments,
-                  treating every photograph as a finished print rather than a casual snapshot.
+                  My work documents boats and coastlines, rivers and light, railways and everyday
+                  life, portraits, and nature. I focus on observing scenes as they are, using
+                  natural light and everyday surroundings.
                 </p>
               </div>
 

@@ -27,8 +27,8 @@ export default function Footer() {
                 </span>
               </div>
               <p className="text-xs text-neutral-400 max-w-sm font-light leading-relaxed">
-                Photographer in Dhaka. Documenting urban architecture, street perspectives, and quiet
-                portraits with deliberate attention to natural light, negative space, and geometry.
+                Mojaddid Shashwoto is a photographer in Dhaka. Photographic archive documenting boats
+                and coastlines, rivers and light, railways and everyday life, portraits, and nature.
               </p>
             </div>
 
@@ -126,8 +126,7 @@ export default function Footer() {
         {/* Bottom Colophon */}
         <div className="pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-[10px] text-neutral-500 uppercase tracking-wider">
           <span>© 2026 MOJADDID SHASHWOTO. ALL VISUAL RIGHTS RESERVED.</span>
-          <div className="flex items-center gap-3">
-            <span>NEXT.JS / LENIS / GSAP</span>
+          <div className="flex items-center gap-2">
             <span className="w-1.5 h-1.5 bg-[#c6ff3d]" />
             <span>DHAKA</span>
           </div>

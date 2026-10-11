@@ -193,9 +193,24 @@ export default function ContactSection({
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
-                  {/* Honeypot field for bot spam deterrence - fully hidden */}
-                  <div className="hidden" style={{ display: "none" }} aria-hidden="true">
-                    <label htmlFor="company_hp">Company</label>
+                  {/* Honeypot field for bot spam deterrence - fully hidden off-screen */}
+                  <div
+                    className="absolute -left-[9999px] -top-[9999px] w-px h-px opacity-0 overflow-hidden pointer-events-none select-none"
+                    style={{
+                      position: "absolute",
+                      left: "-9999px",
+                      top: "-9999px",
+                      width: "1px",
+                      height: "1px",
+                      opacity: 0,
+                      overflow: "hidden",
+                      pointerEvents: "none",
+                    }}
+                    aria-hidden="true"
+                  >
+                    <label htmlFor="company_hp" aria-hidden="true" tabIndex={-1}>
+                      Company
+                    </label>
                     <input
                       id="company_hp"
                       type="text"
@@ -204,6 +219,7 @@ export default function ContactSection({
                       onChange={(e) => setHoneypot(e.target.value)}
                       tabIndex={-1}
                       autoComplete="off"
+                      aria-hidden="true"
                     />
                   </div>
                   <div>

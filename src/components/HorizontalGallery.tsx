@@ -106,6 +106,7 @@ export default function HorizontalGallery({
       <div
         ref={mobileScrollRef}
         onScroll={handleMobileScroll}
+        aria-hidden="true"
         className="lg:hidden flex overflow-x-auto snap-x snap-mandatory px-5 sm:px-6 py-8 gap-4 no-scrollbar -webkit-overflow-scrolling-touch"
         style={{ scrollbarWidth: "none" }}
       >
@@ -120,6 +121,7 @@ export default function HorizontalGallery({
               key={photo.id}
               onClick={() => onSelectPhoto(photo)}
               data-cursor="view"
+              tabIndex={-1}
               className="snap-center shrink-0 w-[82vw] sm:w-[60vw] max-w-[480px] bg-[#0a0a0a] border border-white/15 overflow-hidden active:border-[#c6ff3d] transition-colors"
             >
               <div
@@ -128,7 +130,7 @@ export default function HorizontalGallery({
               >
                 <Image
                   src={photo.file || photo.src}
-                  alt={photo.alt}
+                  alt=""
                   width={photo.width || 1800}
                   height={photo.height || 1200}
                   priority={idx < 2}
