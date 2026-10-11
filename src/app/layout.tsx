@@ -38,11 +38,11 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://mojaddidshashwoto.studio"),
   title: {
-    default: "Mojaddid Shashwoto | Photography Archive",
+    default: "Mojaddid Shashwoto | Photographer in Dhaka",
     template: "%s | Mojaddid Shashwoto",
   },
   description:
-    "Photographs by Mojaddid Shashwoto, documenting boats and coastlines, rivers and light, everyday life, portraits, nature, and architecture.",
+    "Photographs by Mojaddid Shashwoto, a photographer in Dhaka, documenting boats, rivers and coastlines, everyday life, portraits, and nature.",
   alternates: {
     canonical: "/",
   },
@@ -50,9 +50,9 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://mojaddidshashwoto.studio",
-    title: "Mojaddid Shashwoto | Photography Archive",
+    title: "Mojaddid Shashwoto | Photographer in Dhaka",
     description:
-      "Photographs by Mojaddid Shashwoto, documenting boats and coastlines, rivers and light, everyday life, portraits, nature, and architecture.",
+      "Photographs by Mojaddid Shashwoto, a photographer in Dhaka, documenting boats, rivers and coastlines, everyday life, portraits, and nature.",
     siteName: "Mojaddid Shashwoto",
     images: [
       {
@@ -65,9 +65,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Mojaddid Shashwoto | Photography Archive",
+    title: "Mojaddid Shashwoto | Photographer in Dhaka",
     description:
-      "Photographs by Mojaddid Shashwoto, documenting boats and coastlines, rivers and light, everyday life, portraits, nature, and architecture.",
+      "Photographs by Mojaddid Shashwoto, a photographer in Dhaka, documenting boats, rivers and coastlines, everyday life, portraits, and nature.",
     images: ["/og-image.jpg"],
   },
   icons: {
@@ -101,6 +101,11 @@ const jsonLdSchema = {
       "url": "https://mojaddidshashwoto.studio",
       "jobTitle": "Photographer",
       "email": "sasotomujaddid@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Dhaka",
+        "addressCountry": "BD",
+      },
       "image": "https://mojaddidshashwoto.studio/photos/architectural-window-portrait.webp",
       "sameAs": [
         "https://www.instagram.com/mojaddid_shashwoto/",

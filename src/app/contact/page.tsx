@@ -5,14 +5,14 @@ import ContactSection from "@/components/ContactSection";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Get in touch with photographer Mojaddid Shashwoto for inquiries, prints, or questions regarding his photographic archive.",
+    "Contact photographer Mojaddid Shashwoto for inquiries, prints, or questions regarding work documenting boats, rivers and coastlines, everyday life, portraits, and nature.",
   alternates: {
     canonical: "/contact",
   },
   openGraph: {
     title: "Contact | Mojaddid Shashwoto",
     description:
-      "Get in touch with photographer Mojaddid Shashwoto for inquiries, prints, or questions regarding his photographic archive.",
+      "Contact photographer Mojaddid Shashwoto for inquiries, prints, or questions regarding work documenting boats, rivers and coastlines, everyday life, portraits, and nature.",
     url: "https://mojaddidshashwoto.studio/contact",
     siteName: "Mojaddid Shashwoto",
     images: [
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Contact | Mojaddid Shashwoto",
     description:
-      "Get in touch with photographer Mojaddid Shashwoto for inquiries, prints, or questions regarding his photographic archive.",
+      "Contact photographer Mojaddid Shashwoto for inquiries, prints, or questions regarding work documenting boats, rivers and coastlines, everyday life, portraits, and nature.",
     images: ["/og-image.jpg"],
   },
 };

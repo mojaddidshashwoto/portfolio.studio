@@ -27,8 +27,8 @@ export default function Footer() {
                 </span>
               </div>
               <p className="text-xs text-neutral-400 max-w-sm font-light leading-relaxed">
-                Mojaddid Shashwoto is a photographer. Photographic archive documenting boats
-                and coastlines, rivers and light, everyday life, portraits, nature, and architecture.
+                Mojaddid Shashwoto is a photographer in Dhaka. Photographic archive documenting boats,
+                rivers and coastlines, everyday life, portraits, and nature.
               </p>
             </div>
 
@@ -128,7 +128,7 @@ export default function Footer() {
           <span>© 2026 MOJADDID SHASHWOTO. ALL VISUAL RIGHTS RESERVED.</span>
           <div className="flex items-center gap-2">
             <span className="w-1.5 h-1.5 bg-[#c6ff3d]" />
-            <span>PHOTOGRAPHY ARCHIVE</span>
+            <span>DHAKA</span>
           </div>
         </div>
       </div>

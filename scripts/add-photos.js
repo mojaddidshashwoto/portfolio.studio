@@ -5,7 +5,6 @@ const sharp = require('sharp');
 const rawDir = path.join(process.cwd(), 'public/photos/raw');
 const photosDir = path.join(process.cwd(), 'public/photos');
 const jsonPath = path.join(photosDir, 'photos.json');
-const rootJsonPath = path.join(process.cwd(), 'public/photos.json');
 
 // Configuration and metadata mapping for raw files
 // Only describes visible content, strictly no invented facts, camera info, or dates
@@ -280,9 +279,6 @@ async function main() {
   const jsonContent = JSON.stringify(updatedPhotos, null, 2);
 
   fs.writeFileSync(jsonPath, jsonContent, 'utf8');
-  if (fs.existsSync(rootJsonPath)) {
-    fs.writeFileSync(rootJsonPath, jsonContent, 'utf8');
-  }
 
   console.log(`\nSUCCESS: Added ${processedEntries.length} new photos to Archive!`);
   console.log(`Total photos now live: ${updatedPhotos.length}`);

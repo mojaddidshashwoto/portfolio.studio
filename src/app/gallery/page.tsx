@@ -34,11 +34,14 @@ export default function GalleryPage() {
           </span>
         </div>
 
-        {/* Title */}
+        {/* Title & Plain Description */}
         <div className="mb-10">
           <h1 className="font-display text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight uppercase text-[#f2f2f2]">
-            Archive
+            Photography Archive by Mojaddid Shashwoto
           </h1>
+          <p className="text-neutral-400 text-sm sm:text-base max-w-2xl font-sans mt-3">
+            Photographs documenting boats, rivers and coastlines, everyday life, portraits, and nature.
+          </p>
         </div>
 
         {/* Category & Subject Filter Chips */}

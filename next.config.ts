@@ -70,6 +70,21 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        source: "/gallery/boats-and-coastlines",
+        destination: "/gallery/boats-rivers-and-coastlines",
+        permanent: true,
+      },
+      {
+        source: "/gallery/rivers-and-light",
+        destination: "/gallery/boats-rivers-and-coastlines",
+        permanent: true,
+      },
+      {
+        source: "/gallery/architecture",
+        destination: "/gallery/everyday-life",
+        permanent: true,
+      },
+      {
         source: "/gallery/railways-and-everyday-life",
         destination: "/gallery/everyday-life",
         permanent: true,

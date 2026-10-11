@@ -142,7 +142,7 @@ export default function Hero() {
       <div className="hidden lg:flex max-w-7xl mx-auto w-full items-center justify-between font-mono text-[10px] sm:text-[11px] uppercase tracking-wider text-neutral-400 z-10 shrink-0">
         <div className="flex items-center gap-2 text-[#c6ff3d]">
           <span className="w-1.5 h-1.5 bg-[#c6ff3d] shrink-0" />
-          <span className="font-semibold">PHOTOGRAPHER / DHAKA</span>
+          <span className="font-semibold">Photographer in Dhaka</span>
         </div>
         <div className="flex items-center gap-4 text-neutral-500">
           <span>MOJADDID SHASHWOTO</span>
@@ -163,7 +163,7 @@ export default function Hero() {
             <div className="row-start-1 col-start-1 w-full max-w-[310px] sm:max-w-[340px] lg:max-w-none flex items-center justify-between lg:justify-start font-mono text-[10px] sm:text-[11px] uppercase tracking-wider mb-3 lg:mb-4 px-0.5 lg:px-0">
               <div className="flex items-center gap-1.5 lg:gap-2 text-[#c6ff3d]">
                 <span className="w-1.5 h-1.5 bg-[#c6ff3d] shrink-0" />
-                <span className="font-semibold">PHOTOGRAPHER / DHAKA</span>
+                <span className="font-semibold">Photographer in Dhaka</span>
               </div>
               <span className="lg:hidden text-neutral-500 text-[10px] tracking-widest">
                 {"//"} TAP TO SHUFFLE

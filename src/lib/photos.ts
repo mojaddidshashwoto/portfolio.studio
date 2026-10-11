@@ -87,36 +87,27 @@ export interface SubjectMeta {
 }
 
 export const SUBJECTS: Record<string, SubjectMeta> = {
-  "boats-and-coastlines": {
-    slug: "boats-and-coastlines",
-    title: "Boats & Coastlines",
-    metaTitle: "Boats and Coastlines Photography | Mojaddid Shashwoto",
-    description: "Photographs of fishing boats, wooden hulls, and shorelines by Mojaddid Shashwoto.",
-    plainDescription: "Photographs of wooden fishing boats, breaking water, and coastal shores.",
+  "boats-rivers-and-coastlines": {
+    slug: "boats-rivers-and-coastlines",
+    title: "Boats, Rivers & Coastlines",
+    metaTitle: "Boats, Rivers and Coastlines Photography | Mojaddid Shashwoto",
+    description: "Photographs of wooden fishing boats, rivers, and coastal shores by Mojaddid Shashwoto, a photographer in Dhaka.",
+    plainDescription: "Photographs of wooden fishing boats, river waters, and coastal shores.",
     photoIds: [
       "sampan-midday-sun",
+      "river-sunset-boatmen",
       "red-sampan-fishermen",
       "blue-sampan-crew",
       "yellow-sampan-landing",
       "boats-on-grass",
       "boat-in-surf",
+      "crimson-river-twilight",
       "fleet-shoreline",
       "rocky-shore-tide",
       "boats-flags-coast",
       "crescent-prow-sea",
       "solitary-walker-coastal-poles",
       "fishing-boat-rough-waves",
-    ],
-  },
-  "rivers-and-light": {
-    slug: "rivers-and-light",
-    title: "Rivers & Light",
-    metaTitle: "Rivers and Light Photography | Mojaddid Shashwoto",
-    description: "Photographs of river water, reflections, and boatmen at dusk by Mojaddid Shashwoto.",
-    plainDescription: "Photographs of river surfaces, afternoon light, and boatmen on open water.",
-    photoIds: [
-      "river-sunset-boatmen",
-      "crimson-river-twilight",
       "river-boats-bamboo-sunlight",
     ],
   },
@@ -124,7 +115,7 @@ export const SUBJECTS: Record<string, SubjectMeta> = {
     slug: "everyday-life",
     title: "Everyday Life",
     metaTitle: "Everyday Life Photography | Mojaddid Shashwoto",
-    description: "Photographs of locomotives, railway tracks, market stalls, and daily work by Mojaddid Shashwoto.",
+    description: "Photographs of locomotives, railway tracks, markets, brick facades, and daily work by Mojaddid Shashwoto, a photographer in Dhaka.",
     plainDescription: "Photographs of passenger trains, railway tracks, roadside markets, and daily work.",
     photoIds: [
       "locomotive-6525",
@@ -133,13 +124,14 @@ export const SUBJECTS: Record<string, SubjectMeta> = {
       "train-window-view",
       "banknote-in-grass",
       "roadwork-mixer-smoke",
+      "brick-facade-clear-sky",
     ],
   },
   "portraits": {
     slug: "portraits",
     title: "Portraits",
     metaTitle: "Portraits Photography | Mojaddid Shashwoto",
-    description: "Photographs of people observed in natural light and window frames by Mojaddid Shashwoto.",
+    description: "Photographs of people observed in natural light and window frames by Mojaddid Shashwoto, a photographer in Dhaka.",
     plainDescription: "Photographs of people in natural daylight, window frames, and quiet moments.",
     photoIds: [
       "architectural-window-portrait",
@@ -153,7 +145,7 @@ export const SUBJECTS: Record<string, SubjectMeta> = {
     slug: "nature",
     title: "Nature",
     metaTitle: "Nature Photography | Mojaddid Shashwoto",
-    description: "Photographs of trees, foliage, flowers, and open skies by Mojaddid Shashwoto.",
+    description: "Photographs of trees, foliage, flowers, and open skies by Mojaddid Shashwoto, a photographer in Dhaka.",
     plainDescription: "Photographs of trees, plants, blossoms, night stars, and cloudy skies.",
     photoIds: [
       "bare-branches-twilight",
@@ -171,16 +163,6 @@ export const SUBJECTS: Record<string, SubjectMeta> = {
       "pink-rose-woven-bamboo",
       "rose-foliage-shadow",
       "chimney-smoke-forested-hill",
-    ],
-  },
-  "architecture": {
-    slug: "architecture",
-    title: "Architecture",
-    metaTitle: "Architecture Photography | Mojaddid Shashwoto",
-    description: "Photographs of building facades and structural brickwork by Mojaddid Shashwoto.",
-    plainDescription: "Photographs of brick building facades, repetitive windows, and structural lines.",
-    photoIds: [
-      "brick-facade-clear-sky",
     ],
   },
 };
